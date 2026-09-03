@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet – Lesson 3: Education (Interactive)</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2733; --muted:#5b6675;
+    --line:#e2e7f0; --brand:#2f5bd7; --brand-d:#1e3fa3;
+    --good:#1a7f3c; --good-bg:#e7f6ec; --good-line:#9dd8b0;
+    --bad:#c0392b; --bad-bg:#fdeceb; --bad-line:#f1b6b0;
+    --warn:#8a6100; --warn-bg:#fff6e2; --warn-line:#f0d69a;
+    --info:#1b5e8a; --info-bg:#e7f2fb; --info-line:#b6d8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.7;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+  header.top{background:linear-gradient(135deg,#7b3fe4,#a06bf0);color:#fff;border-radius:16px;
+    padding:22px 24px;box-shadow:0 6px 20px rgba(123,63,228,.25)}
+  header.top h1{margin:0 0 4px;font-size:22px}
+  header.top p{margin:2px 0;font-size:14px;opacity:.95}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .intro table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  .intro th,.intro td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .intro th{background:#f1ecfb}
+  section.ex{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin:20px 0;box-shadow:0 2px 8px rgba(20,30,60,.04)}
+  section.ex > h2{margin:0 0 6px;font-size:18px;color:var(--brand-d)}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .q{padding:14px 0;border-top:1px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q .stem{margin-bottom:6px}
+  .q .stem .num{font-weight:700;color:var(--brand-d);margin-right:4px}
+  input.gap{font:inherit;padding:4px 8px;border:1px solid var(--brand);border-radius:7px;background:#fcfdff;
+    min-width:170px;margin:0 3px}
+  input[type=text].sent{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);
+    border-radius:9px;background:#fcfdff}
+  .t-lines{display:grid;gap:8px;margin-top:8px}
+  .t-lines .row{display:flex;gap:8px;align-items:center}
+  .t-lines .row span.n{font-size:13px;color:var(--muted);min-width:64px}
+  .passage{background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px}
+  button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--brand);
+    background:var(--brand);color:#fff;padding:7px 14px;transition:filter .15s}
+  button:hover{filter:brightness(1.07)}
+  button.ghost{background:#fff;color:var(--brand-d)}
+  button.small{padding:4px 10px;font-size:13px}
+  .qbtns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14.5px;display:none}
+  .fb.show{display:block}
+  .fb .why{color:var(--muted);font-style:italic}
+  .fb-good{background:var(--good-bg);border:1px solid var(--good-line);color:#15391f}
+  .fb-bad{background:var(--bad-bg);border:1px solid var(--bad-line);color:#5b1a13}
+  .fb-warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5b4300}
+  .fb-info{background:var(--info-bg);border:1px solid var(--info-line);color:#123a52}
+  .fb ul{margin:6px 0 0;padding-left:20px}
+  .fb li{margin:3px 0}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .tag.ok{background:var(--good-bg);color:var(--good)}
+  .tag.no{background:var(--bad-bg);color:var(--bad)}
+  .tag.hint{background:var(--warn-bg);color:var(--warn)}
+  .section-foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .score{font-weight:700}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.92);backdrop-filter:blur(6px);
+    padding:10px 0;margin:-8px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+  .bar .score{margin-left:auto}
+  code{background:#eef2fb;padding:1px 5px;border-radius:5px;font-size:13px}
+  .cheat{font-size:13px;color:var(--muted);margin-top:8px}
+  @media (max-width:560px){ .t-lines .row{flex-direction:column;align-items:stretch} .bar .score{margin-left:0} input.gap{min-width:140px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>WORKSHEET – LESSON 3</h1>
+    <p>Education &amp; Present Tenses&nbsp; | &nbsp;Pre-IELTS Foundation</p>
+    <p>Phiên bản bài tập tương tác — làm bài, bấm <b>Kiểm tra</b> để nhận giải thích lỗi sai.</p>
+  </header>
+
+  <div class="intro">
+    <p style="margin:0">Phiếu bài tập ôn lại từ vựng <b>Unit 3 – Education</b> và ngữ pháp <b>các thì hiện tại</b> (Present simple / Present continuous / Present perfect simple) ở Handout Session 3 và <i>Perfect Grammar</i>.</p>
+    <table>
+      <tr><th>Bài tập</th><th>Trọng tâm</th><th>Kỹ năng liên quan</th></tr>
+      <tr><td>Exercise 1</td><td>Present simple / continuous / perfect</td><td>Chia đúng thì dựa vào dấu hiệu nhận biết</td></tr>
+      <tr><td>Exercise 2</td><td>Present simple / continuous / perfect</td><td>Sửa lỗi trong transcript Speaking Part 1–2–3</td></tr>
+    </table>
+    <div class="cheat">
+      <b>Dấu hiệu nhanh:</b>
+      <b>Present simple</b> — usually, often, every day, sự thật/định nghĩa chung.
+      <b>Present continuous</b> — Look!, right now, at the moment, currently, this term (giai đoạn tạm thời).
+      <b>Present perfect</b> — already, just, recently, since + mốc quá khứ, for + khoảng thời gian (kéo dài đến hiện tại).
+    </div>
+  </div>
+
+  <div class="bar">
+    <button class="ghost small" onclick="gradeAll()">Chấm toàn bộ</button>
+    <button class="ghost small" onclick="resetAll()">Làm lại từ đầu</button>
+    <span class="score" id="totalScore">Điểm: – / 25</span>
+  </div>
+
+  <!-- ================= EXERCISE 1 ================= -->
+  <section class="ex" id="ex1">
+    <h2>EXERCISE 1 – Chia đúng dạng của động từ</h2>
+    <p class="lead">Put the verb in brackets into the correct present tense. Dựa vào ngữ cảnh và dấu hiệu nhận biết (usually, at the moment, already, currently, since, often, for, just...).</p>
+    <div id="ex1-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx1()">Kiểm tra cả phần</button>
+      <span class="score" id="ex1-score">– / 10</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 ================= -->
+  <section class="ex" id="ex2">
+    <h2>EXERCISE 2 – Tìm và sửa lỗi sai (Speaking Part 1–2–3 transcripts)</h2>
+    <p class="lead">Mỗi đoạn có <b>5 lỗi về các thì hiện tại</b>. Nhập theo định dạng: <code>cụm sai - cụm đúng</code>. Ví dụ: <i>already finish - have already finished</i>.</p>
+    <div id="ex2-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx2()">Kiểm tra cả phần</button>
+      <span class="score" id="ex2-score">– / 15</span>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:30px">
+    Nguồn: Worksheet_Lesson3_Education.docx — phiên bản tương tác.
+  </p>
+</div>
+
+<script>
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(s){return String(s||'').toLowerCase()
+  .replace(/[.,!?;:"'’‘“”()]/g,' ').replace(/\s*[-–—]\s*/g,' ').replace(/\s+/g,' ').trim();}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  let prev=Array.from({length:n+1},(_,i)=>i),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){cur[0]=i;
+    for(let j=1;j<=n;j++){const cost=a[i-1]===b[j-1]?0:1;
+      cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+cost);}
+    [prev,cur]=[cur,prev];}
+  return prev[n];
+}
+function ratio(a,b){if(!a&&!b)return 1;const d=lev(a,b);return 1-d/Math.max(a.length,b.length,1);}
+function contains(a,b){if(!a||!b)return false;return a.includes(b)||b.includes(a);}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+
+/* ============ EXERCISE 1 DATA ============ */
+const EX1=[
+ {text:"Sociologists usually _______ (study) how communities develop over time.",
+  accepts:["study"], tense:"Present simple",
+  why:'Dấu hiệu "usually" (thói quen, lặp lại) → hiện tại đơn. Chủ ngữ "Sociologists" số nhiều → "study" (không thêm -s).',
+  bad:[{test:/\bstudies\b/,msg:'Chủ ngữ số nhiều "Sociologists" → "study", không phải "studies".'}]},
+ {text:"Look! The professor _______ (explain) a new theory to the class right now.",
+  accepts:["is explaining"], tense:"Present continuous",
+  why:'"Look!" và "right now" → hành động đang diễn ra ngay lúc nói → hiện tại tiếp diễn: "is explaining".'},
+ {text:"Researchers _______ (already / collect) enough evidence to support their hypothesis.",
+  accepts:["have already collected","'ve already collected"], tense:"Present perfect",
+  why:'"already" → hiện tại hoàn thành. Chủ ngữ số nhiều → "have already collected" (have + quá khứ phân từ).'},
+ {text:"At the moment, linguists _______ (analyse) the structure of an ancient language.",
+  accepts:["are analysing","are analyzing"], tense:"Present continuous",
+  why:'"At the moment" → hành động đang diễn ra → hiện tại tiếp diễn: "are analysing/analyzing".'},
+ {text:"Economics _______ (examine) how people use limited resources.",
+  accepts:["examines"], tense:"Present simple",
+  why:'Định nghĩa / sự thật chung → hiện tại đơn. "Economics" (tên môn học) là danh từ SỐ ÍT → "examines".',
+  bad:[{test:/^examine$/,msg:'"Economics" là danh từ số ít → "examines" (có -s).'}]},
+ {text:"She _______ (just / finish) her research paper on economic growth.",
+  accepts:["has just finished"], tense:"Present perfect",
+  why:'"just" → việc vừa mới hoàn tất → hiện tại hoàn thành: "has just finished".'},
+ {text:"Archaeologists _______ (currently / dig) for artifacts at an ancient site in Egypt.",
+  accepts:["are currently digging"], tense:"Present continuous",
+  why:'"currently" → hành động tạm thời đang diễn ra quanh hiện tại → "are currently digging".'},
+ {text:"My brother _______ (study) psychology since 2020.",
+  accepts:["has studied","has been studying"], tense:"Present perfect",
+  why:'"since 2020" (mốc thời gian trong quá khứ, kéo dài đến nay) → hiện tại hoàn thành: "has studied" hoặc "has been studying".'},
+ {text:"Astronomers often _______ (observe) distant galaxies to understand the universe.",
+  accepts:["observe"], tense:"Present simple",
+  why:'"often" → thói quen → hiện tại đơn. Chủ ngữ số nhiều → "observe".',
+  bad:[{test:/\bobserves\b/,msg:'Chủ ngữ số nhiều "Astronomers" → "observe", không phải "observes".'}]},
+ {text:"Professor Lee _______ (teach) sociology for more than twenty years.",
+  accepts:["has taught","has been teaching"], tense:"Present perfect",
+  why:'"for more than twenty years" (khoảng thời gian kéo dài đến hiện tại) → hiện tại hoàn thành: "has taught".'}
+];
+
+/* ============ EXERCISE 2 DATA ============ */
+const EX2=[
+ {title:"Transcript – PART 1 (Do you enjoy studying at school?)",
+  text:"I really enjoy studying at school, and I am usually work hard because I want to get good grades. At the moment, I prepare for my economics exam, and I already finish revising two chapters. I currently take extra classes in psychology because I find human behaviour fascinating. I am studying at this school for three years, and my results have improved a lot recently. My teacher usually gives me useful feedback, and I always try my best in class.",
+  mistakes:[
+   {wrong:"i am usually work",correct:"i usually work",why:'"usually" (thói quen) → hiện tại đơn. Bỏ "am": "I usually work hard".'},
+   {wrong:"at the moment i prepare",correct:"at the moment i am preparing",why:'"At the moment" → hiện tại tiếp diễn: "I am preparing".'},
+   {wrong:"i already finish",correct:"i have already finished",why:'"already" → hiện tại hoàn thành: "have already finished".'},
+   {wrong:"i currently take",correct:"i am currently taking",why:'"currently" → hiện tại tiếp diễn: "am currently taking".'},
+   {wrong:"i am studying at this school for three years",correct:"i have studied at this school for three years",why:'"for three years" (kéo dài đến hiện tại, nhấn mạnh kết quả) → hiện tại hoàn thành: "have studied" (hoặc "have been studying").'}]},
+ {title:"Transcript – PART 2 (Describe a course or subject you found interesting)",
+  text:"I would like to talk about a sociology course I took last year at university. It was an introductory course, and it lasted for one semester. This term, I study a more advanced course on the same topic, and I already read three extra books about it. At the moment, I prepare a small research project on social inequality, and I am usually spending two hours a day on it. I want to become a sociologist since I was a teenager, and this course has strengthened that goal. I think this subject is fascinating because it helps me understand how society works.",
+  mistakes:[
+   {wrong:"this term i study",correct:"this term i am studying",why:'"This term" (giai đoạn tạm thời quanh hiện tại) → hiện tại tiếp diễn: "I am studying".'},
+   {wrong:"i already read three extra books",correct:"i have already read three extra books",why:'"already" → hiện tại hoàn thành: "have already read".'},
+   {wrong:"at the moment i prepare",correct:"at the moment i am preparing",why:'"At the moment" → hiện tại tiếp diễn: "I am preparing".'},
+   {wrong:"i am usually spending",correct:"i usually spend",why:'"usually" (thói quen) → hiện tại đơn: "I usually spend two hours a day".'},
+   {wrong:"i want to become a sociologist since i was a teenager",correct:"i have wanted to become a sociologist since i was a teenager",why:'"since + mốc quá khứ" → hiện tại hoàn thành: "I have wanted to become …".'}]},
+ {title:"Transcript – PART 3 (How has technology changed the way students learn?)",
+  text:"Technology change education a lot in recent years. Nowadays, students are using laptops and tablets in class every day instead of only textbooks. Many teachers already adopt new teaching methods, such as interactive apps, to make lessons more engaging. At the moment, more and more students choose to study online because it is convenient and flexible. Universities currently create more digital programmes than before, and I believe this trend will continue to grow in the future.",
+  mistakes:[
+   {wrong:"technology change education",correct:"technology has changed education",why:'"in recent years" + kết quả còn đến hiện tại → hiện tại hoàn thành: "Technology has changed".'},
+   {wrong:"students are using laptops and tablets in class every day",correct:"students use laptops and tablets in class every day",why:'"every day" (thói quen) → hiện tại đơn: "students use …".'},
+   {wrong:"many teachers already adopt",correct:"many teachers have already adopted",why:'"already" → hiện tại hoàn thành: "have already adopted".'},
+   {wrong:"more and more students choose to study online",correct:"more and more students are choosing to study online",why:'"At the moment" → hiện tại tiếp diễn: "students are choosing".'},
+   {wrong:"universities currently create",correct:"universities are currently creating",why:'"currently" → hiện tại tiếp diễn: "are currently creating".'}]}
+];
+
+/* ============ shared: grade a set of "wrong - correct" lines ============ */
+function parsePair(v){
+  const p=v.split(/\s+[-–—>]{1,2}\s+|\s*→\s*/);
+  if(p.length<2)return null;
+  return [p[0].trim(), p.slice(1).join(' ').trim()];
+}
+function tokenSubset(a,b){
+  const ta=norm(a).split(' ').filter(Boolean), tb=norm(b).split(' ').filter(Boolean);
+  const [short,long]=ta.length<=tb.length?[ta,tb]:[tb,ta];
+  if(short.length<2)return false;
+  return short.every(t=>long.includes(t));
+}
+function matchScore(w,target){
+  let r=ratio(w,target);
+  if(contains(w,target))r=Math.max(r,0.9);
+  if(tokenSubset(w,target))r=Math.max(r,0.85);
+  return r;
+}
+function gradeMistakeSet(mistakes,getVal){
+  const used=new Array(mistakes.length).fill(false);
+  let got=0; const lines=[];
+  for(let k=0;k<mistakes.length;k++){
+    const v=(getVal(k)||'').trim();
+    if(!v){lines.push(`<li><span class="tag hint">?</span>Mistake ${k+1}: chưa nhập.</li>`);continue;}
+    const pr=parsePair(v);
+    if(!pr){lines.push(`<li><span class="tag hint">?</span>Mistake ${k+1}: nhập theo định dạng <code>cụm sai - cụm đúng</code> (có dấu cách quanh dấu "-").</li>`);continue;}
+    const w=norm(pr[0]), c=norm(pr[1]);
+    let best=-1,bestR=0;
+    mistakes.forEach((m,mi)=>{ if(used[mi])return;
+      const r=matchScore(w,norm(m.wrong));
+      if(r>bestR){bestR=r;best=mi;}});
+    if(best<0||bestR<0.8){
+      let dup=false;
+      mistakes.forEach((m,mi)=>{ if(used[mi]&&matchScore(w,norm(m.wrong))>=0.8)dup=true;});
+      if(dup) lines.push(`<li><span class="tag hint">↺</span>Mistake ${k+1}: lỗi này đã được nêu ở dòng trên.</li>`);
+      else lines.push(`<li><span class="tag no">✗</span>Mistake ${k+1}: <b>"${esc(pr[0])}"</b> không khớp lỗi thì nào trong đoạn. Xem lại dấu hiệu: usually/every day (đơn), at the moment/currently/this term (tiếp diễn), already/just/since/for (hoàn thành).</li>`);
+      continue;
+    }
+    const m=mistakes[best]; used[best]=true;
+    const cok=matchScore(c,norm(m.correct))>=0.8;
+    if(cok){got++;
+      lines.push(`<li><span class="tag ok">✓</span>Mistake ${k+1}: <b>${esc(m.wrong)}</b> → <b>${esc(m.correct)}</b>.<br><span class="why">${esc(m.why)}</span></li>`);
+    }else{
+      lines.push(`<li><span class="tag no">✗</span>Mistake ${k+1}: đúng chỗ sai (<b>${esc(m.wrong)}</b>) nhưng phần sửa chưa chính xác.<br>Sửa đúng: <b>${esc(m.correct)}</b>.<br><span class="why">${esc(m.why)}</span></li>`);
+    }
+  }
+  return {got,lines};
+}
+
+/* ============ RENDER ============ */
+function renderEx1(){
+  const box=document.getElementById('ex1-list');
+  EX1.forEach((q,i)=>{
+    const parts=q.text.split(/_{3,}/);
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem"><span class="num">${i+1}.</span>${esc(parts[0])}<input class="gap" id="in1_${i}" autocomplete="off" placeholder="…">${esc(parts[1]||'')}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx1One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb1_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function renderEx2(){
+  const box=document.getElementById('ex2-list');
+  EX2.forEach((t,ti)=>{
+    const d=document.createElement('div');d.className='q';
+    let rows='';for(let k=0;k<5;k++){rows+=`<div class="row"><span class="n">Mistake ${k+1}</span>
+      <input type="text" class="sent" id="in2_${ti}_${k}" placeholder="cụm sai - cụm đúng" autocomplete="off"></div>`;}
+    d.innerHTML=`<div class="stem" style="font-weight:600">${esc(t.title)}</div>
+      <div class="passage">${esc(t.text)}</div>
+      <div class="t-lines">${rows}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx2One(${ti})">Kiểm tra đoạn này</button>
+        <button class="small ghost" onclick="revealEx2(${ti})">Xem đáp án đoạn này</button></div>
+      <div class="fb" id="fb2_${ti}"></div>`;
+    box.appendChild(d);
+  });
+}
+
+/* ============ CHECK: EX1 ============ */
+function ex1Diagnose(a,q){
+  if(/\b(is|are|am)\b/.test(a) && /ing\b/.test(a) && q.tense!=='Present continuous')
+    return 'Em dùng thì hiện tại tiếp diễn, nhưng dấu hiệu ở câu này cần '+q.tense.toLowerCase()+'.';
+  if(/\b(have|has)\b/.test(a) && q.tense!=='Present perfect')
+    return 'Em dùng thì hiện tại hoàn thành, nhưng dấu hiệu ở câu này cần '+q.tense.toLowerCase()+'.';
+  if(q.tense==='Present perfect' && !/\b(have|has)\b/.test(a))
+    return 'Thì hiện tại hoàn thành cần "have/has + quá khứ phân từ (V3/V-ed)".';
+  if(q.tense==='Present continuous' && !/\b(is|are|am)\b/.test(a))
+    return 'Thì hiện tại tiếp diễn cần "is/are + V-ing".';
+  if(q.tense==='Present continuous' && !/ing\b/.test(a))
+    return 'Động từ chính phải ở dạng V-ing.';
+  if(q.tense==='Present simple' && /\b(is|are|am|have|has)\b/.test(a))
+    return 'Ngữ cảnh này chỉ cần thì hiện tại ĐƠN (không thêm trợ động từ).';
+  return '';
+}
+function checkEx1One(i){
+  const q=EX1[i], fb=document.getElementById('fb1_'+i);
+  const raw=document.getElementById('in1_'+i).value;
+  const a=norm(raw);
+  if(!a){setFb(fb,'fb-warn','Em chưa điền đáp án.');return false;}
+  const accN=q.accepts.map(norm);
+  const ok=accN.some(x=>a===x || a.endsWith(' '+x));
+  if(ok){
+    setFb(fb,'fb-good',`<b>Chính xác!</b> <b>${esc(q.accepts.join(' / '))}</b> — ${esc(q.tense)}.<br><span class="why">${esc(q.why)}</span>`);
+    return true;
+  }
+  let hint='';
+  (q.bad||[]).forEach(b=>{ if(!hint && b.test.test(a)) hint=b.msg; });
+  if(!hint) hint=ex1Diagnose(a,q);
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> ${hint?esc(hint)+'<br>':''}Đáp án đúng: <b>${esc(q.accepts.join(' / '))}</b> — ${esc(q.tense)}.<br><span class="why">${esc(q.why)}</span>`);
+  return false;
+}
+function checkEx1(){
+  let s=0;EX1.forEach((q,i)=>{if(checkEx1One(i))s++;});
+  document.getElementById('ex1-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ CHECK: EX2 ============ */
+function checkEx2One(ti){
+  const T=EX2[ti], fb=document.getElementById('fb2_'+ti);
+  const {got,lines}=gradeMistakeSet(T.mistakes,k=>document.getElementById(`in2_${ti}_${k}`).value);
+  const cls=got===5?'fb-good':(got>0?'fb-warn':'fb-bad');
+  setFb(fb,cls,`<b>Đúng ${got} / 5 lỗi.</b><ul>${lines.join('')}</ul>`);
+  fb.dataset.got=got;
+  return got;
+}
+function revealEx2(ti){
+  const T=EX2[ti], fb=document.getElementById('fb2_'+ti);
+  setFb(fb,'fb-info',`<b>Đáp án – ${esc(T.title)}</b><ul>${
+    T.mistakes.map((m,i)=>`<li>${i+1}) <b>${esc(m.wrong)}</b> → <b>${esc(m.correct)}</b><br><span class="why">${esc(m.why)}</span></li>`).join('')
+  }</ul>`);
+}
+function checkEx2(){
+  let s=0;EX2.forEach((t,ti)=>{s+=checkEx2One(ti);});
+  document.getElementById('ex2-score').textContent=s+' / 15';
+  updateTotal();
+}
+
+/* ============ totals ============ */
+function num(txt){const m=String(txt).match(/(-?\d+)\s*\/\s*\d+/);return m?+m[1]:null;}
+function updateTotal(){
+  const a=num(document.getElementById('ex1-score').textContent);
+  const b=num(document.getElementById('ex2-score').textContent);
+  if(a===null&&b===null){document.getElementById('totalScore').textContent='Điểm: – / 25';return;}
+  document.getElementById('totalScore').textContent='Điểm: '+((a||0)+(b||0))+' / 25';
+}
+function gradeAll(){checkEx1();checkEx2();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){
+  if(!confirm('Xoá toàn bộ câu trả lời và làm lại từ đầu?'))return;
+  document.querySelectorAll('input.gap, input[type=text].sent').forEach(x=>x.value='');
+  document.querySelectorAll('.fb').forEach(f=>{f.className='fb';f.innerHTML='';});
+  document.getElementById('ex1-score').textContent='– / 10';
+  document.getElementById('ex2-score').textContent='– / 15';
+  updateTotal();
+}
+
+/* ============ init ============ */
+renderEx1();renderEx2();
+</script>
+</body>
+</html>
