@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet – Lesson 1: People and Relationships (Interactive)</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2733; --muted:#5b6675;
+    --line:#e2e7f0; --brand:#2f5bd7; --brand-d:#1e3fa3;
+    --good:#1a7f3c; --good-bg:#e7f6ec; --good-line:#9dd8b0;
+    --bad:#c0392b; --bad-bg:#fdeceb; --bad-line:#f1b6b0;
+    --warn:#8a6100; --warn-bg:#fff6e2; --warn-line:#f0d69a;
+    --info:#1b5e8a; --info-bg:#e7f2fb; --info-line:#b6d8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.6;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+  header.top{background:linear-gradient(135deg,#2f5bd7,#5b8def);color:#fff;border-radius:16px;
+    padding:22px 24px;box-shadow:0 6px 20px rgba(47,91,215,.25)}
+  header.top h1{margin:0 0 4px;font-size:22px}
+  header.top p{margin:2px 0;font-size:14px;opacity:.95}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .intro table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  .intro th,.intro td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .intro th{background:#eef2fb}
+  section.ex{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin:20px 0;box-shadow:0 2px 8px rgba(20,30,60,.04)}
+  section.ex > h2{margin:0 0 6px;font-size:18px;color:var(--brand-d)}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .q{padding:14px 0;border-top:1px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q .stem{font-weight:600;margin-bottom:8px}
+  .opts{list-style:none;margin:0;padding:0}
+  .opts li{margin:4px 0}
+  .opts label{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);
+    border-radius:9px;cursor:pointer;transition:background .15s,border-color .15s}
+  .opts label:hover{background:#f7f9ff}
+  .opts input{margin-top:4px}
+  .opt-letter{font-weight:700;color:var(--brand-d)}
+  input[type=text].sent{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);
+    border-radius:9px;background:#fcfdff}
+  .words{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
+  .chip{background:#eef2fb;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:14px;color:var(--brand-d)}
+  .t-lines{display:grid;gap:8px;margin-top:8px}
+  .t-lines .row{display:flex;gap:8px;align-items:center}
+  .t-lines .row span.n{font-size:13px;color:var(--muted);min-width:54px}
+  .transcript{background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px}
+  button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--brand);
+    background:var(--brand);color:#fff;padding:7px 14px;transition:filter .15s}
+  button:hover{filter:brightness(1.07)}
+  button.ghost{background:#fff;color:var(--brand-d)}
+  button.small{padding:4px 10px;font-size:13px}
+  .qbtns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14.5px;display:none}
+  .fb.show{display:block}
+  .fb .why{color:var(--muted);font-style:italic}
+  .fb-good{background:var(--good-bg);border:1px solid var(--good-line);color:#15391f}
+  .fb-bad{background:var(--bad-bg);border:1px solid var(--bad-line);color:#5b1a13}
+  .fb-warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5b4300}
+  .fb-info{background:var(--info-bg);border:1px solid var(--info-line);color:#123a52}
+  .fb ul{margin:6px 0 0;padding-left:20px}
+  .fb li{margin:3px 0}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .tag.ok{background:var(--good-bg);color:var(--good)}
+  .tag.no{background:var(--bad-bg);color:var(--bad)}
+  .tag.hint{background:var(--warn-bg);color:var(--warn)}
+  .section-foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .score{font-weight:700}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.92);backdrop-filter:blur(6px);
+    padding:10px 0;margin:-8px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+  .bar .score{margin-left:auto}
+  code{background:#eef2fb;padding:1px 5px;border-radius:5px;font-size:13px}
+  @media (max-width:560px){ .t-lines .row{flex-direction:column;align-items:stretch} .bar .score{margin-left:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>WORKSHEET – LESSON 1</h1>
+    <p>People and Relationships &amp; Sentence Word Order&nbsp; | &nbsp;Pre-IELTS Foundation (A2)</p>
+    <p>Phiên bản bài tập tương tác — làm bài, bấm <b>Kiểm tra</b> để nhận giải thích lỗi sai.</p>
+  </header>
+
+  <div class="intro">
+    <p style="margin:0">Phiếu bài tập ôn lại từ vựng <b>Unit 1 – People and relationships</b> và ngữ pháp <b>trật tự từ (word order)</b> ở Handout 1–3. 3 bài tập được thiết kế theo 3 mức độ Nhận biết – Thông hiểu – Vận dụng, gắn với 3 phần của IELTS Speaking (Part 1 – Part 2 – Part 3).</p>
+    <table>
+      <tr><th>Bài tập</th><th>Mức độ</th><th>Kỹ năng liên quan</th></tr>
+      <tr><td>Exercise 1</td><td>Nhận biết → Thông hiểu</td><td>Grammar – trật tự từ nâng cao (ôn Handout 3)</td></tr>
+      <tr><td>Exercise 2</td><td>Thông hiểu</td><td>Grammar + Vocabulary Unit 1 (sắp xếp câu)</td></tr>
+      <tr><td>Exercise 3</td><td>Thông hiểu → Vận dụng</td><td>Grammar + Speaking Part 1–2–3 (tìm &amp; sửa lỗi)</td></tr>
+    </table>
+  </div>
+
+  <div class="bar">
+    <button class="ghost small" onclick="gradeAll()">Chấm toàn bộ</button>
+    <button class="ghost small" onclick="resetAll()">Làm lại từ đầu</button>
+    <span class="score" id="totalScore">Điểm: – / 40</span>
+  </div>
+
+  <!-- ================= EXERCISE 1 ================= -->
+  <section class="ex" id="ex1">
+    <h2>EXERCISE 1 – Chọn câu đúng trật tự từ (Word order)</h2>
+    <p class="lead">Ôn Handout 3. Circle A, B, C or D – the sentence with the correct word order.</p>
+    <div id="ex1-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx1()">Kiểm tra cả phần</button>
+      <span class="score" id="ex1-score">– / 10</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 ================= -->
+  <section class="ex" id="ex2">
+    <h2>EXERCISE 2 – Sắp xếp từ thành câu hoàn chỉnh</h2>
+    <p class="lead">Từ vựng Unit 1 (colleague, employer, sibling, care, attention, tolerant, co-operative, effectively, autonomy, decisions, stereotype, unconventional, flexible, idealistic...). Gõ lại cả câu đúng thứ tự, viết hoa đầu câu và có dấu chấm cuối câu.</p>
+    <div id="ex2-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx2()">Kiểm tra cả phần</button>
+      <span class="score" id="ex2-score">– / 10</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 3 ================= -->
+  <section class="ex" id="ex3">
+    <h2>EXERCISE 3 – Tìm và sửa lỗi sai (Speaking Part 1–2–3 transcripts)</h2>
+    <p class="lead">Mỗi đoạn có <b>4 lỗi trật tự từ (word order)</b>. Nhập theo định dạng: <code>cụm sai - cụm đúng</code> (nhớ dấu cách quanh dấu gạch). Ví dụ: <i>help always each other - always help each other</i>.</p>
+    <div id="ex3-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx3()">Kiểm tra cả phần</button>
+      <span class="score" id="ex3-score">– / 20</span>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:30px">
+    Nguồn: 0. Worksheet_Lesson1_People_and_Relationships.docx — phiên bản tương tác.
+  </p>
+</div>
+
+<script>
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(s){return String(s||'').toLowerCase()
+  .replace(/[.,!?;:"'’‘“”()]/g,' ').replace(/\s*[-–—]\s*/g,' ').replace(/\s+/g,' ').trim();}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  let prev=Array.from({length:n+1},(_,i)=>i),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){cur[0]=i;
+    for(let j=1;j<=n;j++){const cost=a[i-1]===b[j-1]?0:1;
+      cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+cost);}
+    [prev,cur]=[cur,prev];}
+  return prev[n];
+}
+function ratio(a,b){if(!a&&!b)return 1;const d=lev(a,b);return 1-d/Math.max(a.length,b.length,1);}
+function contains(a,b){if(!a||!b)return false;return a.includes(b)||b.includes(a);}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+function tokensSorted(s){return norm(s).split(' ').filter(Boolean).sort().join(' ');}
+
+/* ============ EXERCISE 1 DATA ============ */
+const EX1=[
+ {stem:'1.',correct:0,opts:[
+   {t:"My employer gave extremely useful feedback to me last week."},
+   {t:"My employer gave to me extremely useful feedback last week.",why:'Khi dùng "to me", tân ngữ trực tiếp ("feedback") phải đứng trước: gave … feedback to me. Không đặt "to me" trước tân ngữ trực tiếp.'},
+   {t:"My employer extremely gave useful feedback to me last week.",why:'"extremely" không bổ nghĩa cho động từ "gave"; nó phải đứng ngay trước tính từ "useful".'},
+   {t:"Extremely my employer gave useful feedback to me last week.",why:'Không mở đầu câu bằng "Extremely" — trạng từ bị đặt sai vị trí.'}],
+   ok:'Trật tự đúng: S + V + tân ngữ trực tiếp ("feedback") + "to" + tân ngữ gián tiếp ("me") + cụm thời gian ("last week"). "extremely" bổ nghĩa cho tính từ "useful" nên đứng ngay trước nó.'},
+ {stem:'2.',correct:0,opts:[
+   {t:"What has changed people's attitudes towards only children?"},
+   {t:"What did has changed people's attitudes towards only children?",why:'"did has changed" — thừa trợ động từ, sai ngữ pháp.'},
+   {t:"What has people's attitudes towards only children changed?",why:'Đây là câu hỏi chủ ngữ nên không đảo ngữ; "has … changed" phải đứng liền nhau, ngay sau "What".'},
+   {t:"What changed has people's attitudes towards only children?",why:'Trật tự lộn xộn: "changed has" sai.'}],
+   ok:'"What" là CHỦ NGỮ của câu hỏi nên KHÔNG đảo trợ động từ và KHÔNG thêm do/does/did: What + has changed + tân ngữ.'},
+ {stem:'3.',correct:0,opts:[
+   {t:"What kind of stereotype have only children traditionally faced?"},
+   {t:"What kind of stereotype only children have traditionally faced?",why:'Thiếu đảo ngữ: trong câu hỏi tân ngữ, trợ động từ "have" phải đứng TRƯỚC chủ ngữ "only children".'},
+   {t:"What kind of stereotype have traditionally only children faced?",why:'"traditionally" bị đặt trước chủ ngữ; trạng từ giữa câu phải đứng sau chủ ngữ / sau trợ động từ.'},
+   {t:"What kind of stereotype only children traditionally have faced?",why:'Thiếu đảo ngữ giữa trợ động từ và chủ ngữ.'}],
+   ok:'Câu hỏi tân ngữ: cụm wh- + trợ động từ "have" + chủ ngữ "only children" + trạng từ "traditionally" + động từ chính "faced".'},
+ {stem:'4.',correct:0,opts:[
+   {t:"Can you tell me whether only children are usually less co-operative than other kids?"},
+   {t:"Can you tell me whether are only children usually less co-operative than other kids?",why:'Câu hỏi gián tiếp KHÔNG đảo ngữ: không viết "are only children" sau "whether".'},
+   {t:"Can you tell me whether usually only children are less co-operative than other kids?",why:'"usually" đặt sai — phải đứng sau động từ "are", không đứng trước chủ ngữ.'},
+   {t:"Can you tell me are only children whether usually less co-operative than other kids?",why:'Trật tự lộn xộn, "whether" đặt sai chỗ.'}],
+   ok:'Sau "whether" (câu hỏi gián tiếp) dùng trật tự câu trần thuật: chủ ngữ "only children" + động từ "are" + …; "usually" đứng sau "are".'},
+ {stem:'5.',correct:0,opts:[
+   {t:"Nowadays, employees often communicate with their managers through email."},
+   {t:"Nowadays, employees with their managers often communicate through email.",why:'Cụm "with their managers" chen giữa chủ ngữ và động từ; "often" phải đứng ngay trước động từ, "with their managers" đứng sau động từ.'},
+   {t:"Often nowadays employees communicate with their managers through email.",why:'Chồng hai trạng từ "Often nowadays" đầu câu, không tự nhiên; "often" nên ở giữa câu.'},
+   {t:"Nowadays often, employees communicate with their managers through email.",why:'Dấu phẩy đặt sai sau "often"; "often" nên đứng giữa câu (trước động từ).'}],
+   ok:'"Nowadays," (trạng từ thời gian) + phẩy; "often" (tần suất) trước động từ chính "communicate"; các cụm giới từ đứng sau.'},
+ {stem:'6.',correct:0,opts:[
+   {t:"My colleagues always support each other during difficult projects at work."},
+   {t:"My colleagues support always each other during difficult projects at work.",why:'Không đặt "always" giữa động từ và tân ngữ ("support always each other").'},
+   {t:"Always my colleagues support each other during difficult projects at work.",why:'"always" không đứng đầu câu.'},
+   {t:"My colleagues support each other always during difficult projects at work.",why:'Đặt "always" sau tân ngữ là không chuẩn; vị trí giữa câu (trước động từ) mới đúng.'}],
+   ok:'Trạng từ tần suất "always" đứng trước động từ chính "support".'},
+ {stem:'7.',correct:0,opts:[
+   {t:"She has an extremely supportive employer who values autonomy."},
+   {t:"She has a supportive extremely employer who values autonomy.",why:'Trạng từ "extremely" phải đứng TRƯỚC tính từ "supportive", không đứng sau.'},
+   {t:"She has an employer extremely supportive who values autonomy.",why:'Cụm tính từ "extremely supportive" nên đứng trước danh từ "employer".'},
+   {t:"She has an employer who extremely values supportive autonomy.",why:'Nghĩa lộn xộn; "supportive" bị dùng sai vị trí.'}],
+   ok:'"extremely" (trạng từ) + "supportive" (tính từ) + "employer" (danh từ): trạng từ đứng ngay trước tính từ, cả cụm đứng trước danh từ.'},
+ {stem:'8.',correct:0,opts:[
+   {t:"The company usually gives useful training to new employees."},
+   {t:"The company gives usually useful training to new employees.",why:'Không đặt "usually" giữa động từ và tân ngữ ("gives usually useful training").'},
+   {t:"The company gives useful training usually to new employees.",why:'"usually" chen giữa tân ngữ và cụm giới từ — không tự nhiên.'},
+   {t:"The company gives useful training to usually new employees.",why:'"usually" lọt vào trong cụm giới từ ("to usually new employees") — sai.'}],
+   ok:'"usually" đứng trước động từ chính "gives"; sau đó là tân ngữ "useful training" rồi "to new employees".'},
+ {stem:'9.',correct:0,opts:[
+   {t:"The sibling who I admire most always encourages me to follow my dreams."},
+   {t:"The sibling who I admire most encourages always me to follow my dreams.",why:'Không đặt "always" giữa động từ và tân ngữ ("encourages always me").'},
+   {t:"The sibling always who I admire most encourages me to follow my dreams.",why:'"always" bị chèn sai trước mệnh đề quan hệ.'},
+   {t:"Always the sibling who I admire most encourages me to follow my dreams.",why:'"always" không đứng đầu câu.'}],
+   ok:'Mệnh đề quan hệ "who I admire most" bổ nghĩa cho chủ ngữ; trạng từ tần suất "always" đứng trước động từ chính "encourages".'},
+ {stem:'10.',correct:0,opts:[
+   {t:"Nowadays, extended families are becoming less common than nuclear families."},
+   {t:"Nowadays, extended families are becoming common less than nuclear families.",why:'"less" phải đứng TRƯỚC tính từ "common": "less common than".'},
+   {t:"Nowadays, extended families are becoming less than common nuclear families.",why:'"than" đặt sai chỗ — phải đứng sau "less common".'},
+   {t:"Nowadays, less extended families are becoming common than nuclear families.",why:'"less" gắn nhầm vào "extended families" thay vì vào tính từ "common".'}],
+   ok:'Cấu trúc so sánh kém: "less" + tính từ ("common") + "than" + vế so sánh.'}
+];
+
+/* ============ EXERCISE 2 DATA ============ */
+const EX2=[
+ {w:"for / her / hard work / colleague / my / admire / I",a:"I admire my colleague for her hard work.",
+  rule:'S ("I") + V ("admire") + tân ngữ ("my colleague") + cụm giới từ ("for her hard work").'},
+ {w:"last year / my / training / gave / employer / useful / me",a:"My employer gave me useful training last year.",
+  accept:["last year my employer gave me useful training","my employer gave useful training to me last year"],
+  rule:'S + V + tân ngữ gián tiếp ("me") + tân ngữ trực tiếp ("useful training") + thời gian ("last year"). Khi tân ngữ gián tiếp đứng ngay sau động từ thì KHÔNG dùng "to".'},
+ {w:"each other / care / siblings / of / take / usually",a:"Siblings usually take care of each other.",
+  rule:'Trạng từ tần suất "usually" đứng trước động từ chính "take".'},
+ {w:"one child / their / parents / on / often / attention / concentrate",a:"Parents often concentrate their attention on one child.",
+  rule:'"often" trước động từ "concentrate"; tân ngữ "their attention" + cụm giới từ "on one child".'},
+ {w:"others / differences / tolerant / can / in / people / accept",a:"Tolerant people can accept differences in others.",
+  rule:'Tính từ "Tolerant" trước danh từ "people"; modal "can" + động từ nguyên thể "accept" + tân ngữ + cụm giới từ.'},
+ {w:"in / co-operative / groups / work / students / effectively",a:"Co-operative students work effectively in groups.",
+  rule:'Trạng từ chỉ cách thức "effectively" đứng sau động từ "work", trước cụm giới từ "in groups".'},
+ {w:"their / autonomy / own decisions / people / allows / to / make",a:"Autonomy allows people to make their own decisions.",
+  rule:'S + V ("allows") + tân ngữ ("people") + "to" + động từ nguyên thể ("to make …").'},
+ {w:"children / this / unconventional / stereotype / only / seem / makes",a:"This stereotype makes only children seem unconventional.",
+  rule:'make + tân ngữ ("only children") + động từ nguyên thể không "to" ("seem") + tính từ ("unconventional").'},
+ {w:"and / good / flexible / are / open-minded / managers / usually",a:"Good managers are usually flexible and open-minded.",
+  rule:'Với động từ "be", trạng từ tần suất "usually" đứng SAU "are": "are usually flexible …".'},
+ {w:"follows / my / his / brother / dreams / idealistic / always",a:"My idealistic brother always follows his dreams.",
+  rule:'Tính từ "idealistic" trước danh từ "brother"; trạng từ tần suất "always" trước động từ chính "follows".'}
+];
+
+/* ============ EXERCISE 3 DATA ============ */
+const EX3=[
+ {title:"Transcript 1 – PART 1 (A colleague you get on well with)",
+  text:"I have a colleague called Nam who I really get on well with. He helps always me with difficult tasks, and he gives to me useful feedback every week. He is very friendly and hard-working extremely, so I admire him a lot. We usually have lunch together every day in the canteen. I think good colleagues like him are hard to find.",
+  mistakes:[
+   {wrong:"helps always me",correct:"always helps me",why:'Trạng từ tần suất đứng TRƯỚC động từ chính; tân ngữ "me" đứng sau động từ.'},
+   {wrong:"gives to me",correct:"gives me",why:'"give + ai + cái gì": khi tân ngữ gián tiếp ("me") đứng ngay sau động từ thì bỏ "to".'},
+   {wrong:"hard-working extremely",correct:"extremely hard-working",why:'Trạng từ "extremely" đứng trước tính từ "hard-working".'},
+   {wrong:"every day in the canteen",correct:"in the canteen every day",why:'Trật tự cuối câu: nơi chốn (where) trước thời gian (when).'}]},
+ {title:"Transcript 2 – PART 1 (Your siblings)",
+  text:"I have two younger siblings, a brother and a sister. My brother is energetic extremely, and he wants always to play sports. My sister often gives to me good advice when I have problems. We don't always agree with each other, but we love very much each other.",
+  mistakes:[
+   {wrong:"energetic extremely",correct:"extremely energetic",why:'Trạng từ đứng trước tính từ.'},
+   {wrong:"wants always",correct:"always wants",why:'Trạng từ tần suất đứng trước động từ chính.'},
+   {wrong:"gives to me",correct:"gives me",why:'Bỏ "to" khi tân ngữ gián tiếp đứng ngay sau động từ.'},
+   {wrong:"love very much each other",correct:"love each other very much",why:'Tân ngữ ("each other") đứng trước cụm trạng ngữ "very much".'}]},
+ {title:"Transcript 3 – PART 2 (Describe a family member who is important to you)",
+  text:"I'm going to talk about my aunt, who lives in Da Nang. She is a kind and generous extremely woman. Whenever I visit her, she cooks always a delicious meal for me. She worked as a teacher for over twenty years, and she taught successfully hundreds of students. I only see her twice a year because she lives far away. I really admire her because she always helps people in need. As generous as her one day I would like to be.",
+  mistakes:[
+   {wrong:"generous extremely",correct:"extremely generous",why:'Trạng từ đứng trước tính từ.'},
+   {wrong:"cooks always",correct:"always cooks",why:'Trạng từ tần suất đứng trước động từ chính.'},
+   {wrong:"taught successfully",correct:"successfully taught",why:'Không đặt trạng từ giữa động từ và tân ngữ ("taught successfully hundreds of students"); đưa "successfully" ra trước động từ chính.'},
+   {wrong:"As generous as her one day I would like to be",correct:"I would like to be as generous as her one day",why:'Dùng trật tự câu trần thuật bình thường: S + V + bổ ngữ; không đảo cụm so sánh lên đầu.'}]},
+ {title:"Transcript 4 – PART 3 (Family size and only children)",
+  text:"These days, more parents are choosing to have only one child, and this is becoming a trend more common in modern society. Only children get usually more attention from their parents, so they can become independent quite. However, some people think that only children are less co-operative children with siblings than. Personally, I believe that a person's character depends on their upbringing, not on the number of siblings they have.",
+  mistakes:[
+   {wrong:"a trend more common",correct:"a more common trend",why:'Cụm tính từ so sánh ("more common") đứng trước danh từ "trend".'},
+   {wrong:"get usually",correct:"usually get",why:'Trạng từ tần suất đứng trước động từ chính.'},
+   {wrong:"become independent quite",correct:"become quite independent",why:'Trạng từ chỉ mức độ "quite" đứng trước tính từ "independent".'},
+   {wrong:"less co-operative children with siblings than",correct:"less co-operative than children with siblings",why:'"than" đứng ngay sau tính từ so sánh ("less co-operative"), rồi mới đến vế so sánh.'}]},
+ {title:"Transcript 5 – PART 3 (Technology and relationships)",
+  text:"I think technology has changed the way people build relationships. Nowadays, people communicate often with their friends and family through social media instead of meeting in person. This can be convenient, but it sometimes makes relationships meaningful less. In the past, people spent usually more time having face-to-face conversations. Real relationships still need regular personal contact to stay strong, in my view.",
+  mistakes:[
+   {wrong:"communicate often",correct:"often communicate",why:'Trạng từ tần suất đứng trước động từ chính.'},
+   {wrong:"relationships meaningful less",correct:"relationships less meaningful",why:'"less" đứng trước tính từ "meaningful".'},
+   {wrong:"spent usually",correct:"usually spent",why:'Trạng từ tần suất đứng trước động từ chính.'},
+   {wrong:"Real relationships still need regular personal contact to stay strong, in my view",correct:"In my view, real relationships still need regular personal contact to stay strong",why:'Cụm nêu quan điểm "in my view" nên đặt ở đầu câu (kèm dấu phẩy).'}]}
+];
+
+/* ============ RENDER ============ */
+const L=['A','B','C','D'];
+function renderEx1(){
+  const box=document.getElementById('ex1-list');
+  EX1.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem">${esc(q.stem)}</div>
+      <ul class="opts">${q.opts.map((o,k)=>`<li><label>
+        <input type="radio" name="q1_${i}" value="${k}">
+        <span><span class="opt-letter">${L[k]}.</span> ${esc(o.t)}</span></label></li>`).join('')}</ul>
+      <div class="qbtns"><button class="small" onclick="checkEx1One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb1_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function renderEx2(){
+  const box=document.getElementById('ex2-list');
+  EX2.forEach((q,i)=>{
+    const chips=q.w.split('/').map(x=>`<span class="chip">${esc(x.trim())}</span>`).join('');
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem">${i+1}.</div>
+      <div class="words">${chips}</div>
+      <input type="text" class="sent" id="in2_${i}" placeholder="Your sentence: …" autocomplete="off">
+      <div class="qbtns"><button class="small" onclick="checkEx2One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb2_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function renderEx3(){
+  const box=document.getElementById('ex3-list');
+  EX3.forEach((t,ti)=>{
+    const d=document.createElement('div');d.className='q';
+    let rows='';for(let k=0;k<4;k++){rows+=`<div class="row"><span class="n">Mistake ${k+1}</span>
+      <input type="text" class="sent t${ti}-input" id="in3_${ti}_${k}" placeholder="cụm sai - cụm đúng" autocomplete="off"></div>`;}
+    d.innerHTML=`<div class="stem">${esc(t.title)}</div>
+      <div class="transcript">${esc(t.text)}</div>
+      <div class="t-lines">${rows}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx3One(${ti})">Kiểm tra đoạn này</button>
+        <button class="small ghost" onclick="revealEx3(${ti})">Xem đáp án đoạn này</button></div>
+      <div class="fb" id="fb3_${ti}"></div>`;
+    box.appendChild(d);
+  });
+}
+
+/* ============ CHECK: EX1 ============ */
+function checkEx1One(i){
+  const q=EX1[i], fb=document.getElementById('fb1_'+i);
+  const sel=document.querySelector(`input[name="q1_${i}"]:checked`);
+  if(!sel){setFb(fb,'fb-warn','Em chưa chọn đáp án.');return false;}
+  const k=+sel.value;
+  if(k===q.correct){
+    setFb(fb,'fb-good',`<b>Chính xác!</b> Đáp án <b>${L[q.correct]}</b>.<br><span class="why">${esc(q.ok)}</span>`);
+    return true;
+  }
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> Em chọn <b>${L[k]}</b>: ${esc(q.opts[k].why||'trật tự từ chưa chuẩn.')}
+    <br>Đáp án đúng là <b>${L[q.correct]}</b>: <span class="why">${esc(q.ok)}</span>`);
+  return false;
+}
+function checkEx1(){
+  let s=0;EX1.forEach((q,i)=>{if(checkEx1One(i))s++;});
+  document.getElementById('ex1-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ CHECK: EX2 ============ */
+function checkEx2One(i){
+  const q=EX2[i], fb=document.getElementById('fb2_'+i);
+  const raw=document.getElementById('in2_'+i).value.trim();
+  if(!raw){setFb(fb,'fb-warn','Em chưa viết câu.');return false;}
+  const nU=norm(raw);
+  const accepts=[norm(q.a)].concat((q.accept||[]).map(norm));
+  if(accepts.includes(nU)){
+    const punct=/^[A-Z]/.test(raw)&&/[.!?]$/.test(raw);
+    setFb(fb,'fb-good',`<b>Chính xác!</b> ${esc(q.a)}` +
+      (punct?'':'<br><span class="why">Nhớ viết hoa đầu câu và có dấu chấm cuối câu.</span>'));
+    return true;
+  }
+  if(tokensSorted(raw)===tokensSorted(q.a)){
+    setFb(fb,'fb-bad',`<b>Sai trật tự từ.</b> Em dùng đúng các từ nhưng thứ tự chưa chuẩn.
+      <br>Quy tắc: <span class="why">${esc(q.rule)}</span>
+      <br>Đáp án: <b>${esc(q.a)}</b>`);
+    return false;
+  }
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> Câu của em thiếu / thừa / sai từ so với bộ từ đã cho.
+    <br>Quy tắc: <span class="why">${esc(q.rule)}</span>
+    <br>Đáp án: <b>${esc(q.a)}</b>`);
+  return false;
+}
+function checkEx2(){
+  let s=0;EX2.forEach((q,i)=>{if(checkEx2One(i))s++;});
+  document.getElementById('ex2-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ CHECK: EX3 ============ */
+function parsePair(v){
+  const p=v.split(/\s+[-–—>]{1,2}\s+|\s*→\s*/);
+  if(p.length<2)return null;
+  return [p[0].trim(), p.slice(1).join(' ').trim()];
+}
+function checkEx3One(ti){
+  const T=EX3[ti], fb=document.getElementById('fb3_'+ti);
+  const used=new Array(4).fill(false);
+  let got=0; const lines=[];
+  for(let k=0;k<4;k++){
+    const v=document.getElementById(`in3_${ti}_${k}`).value.trim();
+    if(!v){lines.push(`<li><span class="tag hint">?</span>Mistake ${k+1}: chưa nhập.</li>`);continue;}
+    const pr=parsePair(v);
+    if(!pr){lines.push(`<li><span class="tag hint">?</span>Mistake ${k+1}: nhập theo định dạng <code>cụm sai - cụm đúng</code> (có dấu cách quanh dấu "-").</li>`);continue;}
+    const w=norm(pr[0]), c=norm(pr[1]);
+    let best=-1,bestR=0;
+    T.mistakes.forEach((m,mi)=>{ if(used[mi])return;
+      let r=ratio(w,norm(m.wrong)); if(contains(w,norm(m.wrong)))r=Math.max(r,0.9);
+      if(r>bestR){bestR=r;best=mi;}});
+    if(best<0||bestR<0.6){
+      let dup=false;
+      T.mistakes.forEach((m,mi)=>{ if(used[mi]&&(ratio(w,norm(m.wrong))>0.7||contains(w,norm(m.wrong))))dup=true;});
+      if(dup){lines.push(`<li><span class="tag hint">↺</span>Mistake ${k+1}: lỗi này đã được nêu ở dòng trên.</li>`);}
+      else{lines.push(`<li><span class="tag no">✗</span>Mistake ${k+1}: <b>"${esc(pr[0])}"</b> không phải một trong 4 lỗi trật tự từ của đoạn. Tìm chỗ đặt sai vị trí của <i>trạng từ tần suất</i>, <i>trạng từ + tính từ</i>, <i>"than"</i>, hay <i>"to" + tân ngữ</i>.</li>`);}
+      continue;
+    }
+    const m=T.mistakes[best]; used[best]=true;
+    const cok=ratio(c,norm(m.correct))>=0.8||contains(c,norm(m.correct));
+    if(cok){got++;
+      lines.push(`<li><span class="tag ok">✓</span>Mistake ${k+1}: <b>${esc(m.wrong)}</b> → <b>${esc(m.correct)}</b>.<br><span class="why">${esc(m.why)}</span></li>`);
+    }else{
+      lines.push(`<li><span class="tag no">✗</span>Mistake ${k+1}: đúng chỗ sai (<b>${esc(m.wrong)}</b>) nhưng phần sửa chưa chính xác.<br>Sửa đúng: <b>${esc(m.correct)}</b>.<br><span class="why">${esc(m.why)}</span></li>`);
+    }
+  }
+  const cls=got===4?'fb-good':(got>0?'fb-warn':'fb-bad');
+  setFb(fb,cls,`<b>Đúng ${got} / 4 lỗi.</b><ul>${lines.join('')}</ul>`);
+  fb.dataset.got=got;
+  return got;
+}
+function revealEx3(ti){
+  const T=EX3[ti], fb=document.getElementById('fb3_'+ti);
+  setFb(fb,'fb-info',`<b>Đáp án – ${esc(T.title)}</b><ul>${
+    T.mistakes.map((m,i)=>`<li>${i+1}) <b>${esc(m.wrong)}</b> → <b>${esc(m.correct)}</b><br><span class="why">${esc(m.why)}</span></li>`).join('')
+  }</ul>`);
+}
+function checkEx3(){
+  let s=0;EX3.forEach((t,ti)=>{s+=checkEx3One(ti);});
+  document.getElementById('ex3-score').textContent=s+' / 20';
+  updateTotal();
+}
+
+/* ============ totals ============ */
+function num(txt){const m=String(txt).match(/(-?\d+)\s*\/\s*\d+/);return m?+m[1]:null;}
+function updateTotal(){
+  const a=num(document.getElementById('ex1-score').textContent);
+  const b=num(document.getElementById('ex2-score').textContent);
+  const c=num(document.getElementById('ex3-score').textContent);
+  if(a===null&&b===null&&c===null){document.getElementById('totalScore').textContent='Điểm: – / 40';return;}
+  const tot=(a||0)+(b||0)+(c||0);
+  document.getElementById('totalScore').textContent='Điểm: '+tot+' / 40';
+}
+function gradeAll(){checkEx1();checkEx2();checkEx3();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){
+  if(!confirm('Xoá toàn bộ câu trả lời và làm lại từ đầu?'))return;
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('input[type=text].sent').forEach(x=>x.value='');
+  document.querySelectorAll('.fb').forEach(f=>{f.className='fb';f.innerHTML='';});
+  document.getElementById('ex1-score').textContent='– / 10';
+  document.getElementById('ex2-score').textContent='– / 10';
+  document.getElementById('ex3-score').textContent='– / 20';
+  updateTotal();
+}
+
+/* ============ init ============ */
+renderEx1();renderEx2();renderEx3();
+</script>
+</body>
+</html>
