@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet – Lesson 7: Noun Clause & Relative Clause (Interactive)</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2733; --muted:#5b6675;
+    --line:#e2e7f0; --brand:#4338ca; --brand-d:#332a9c;
+    --good:#1a7f3c; --good-bg:#e7f6ec; --good-line:#9dd8b0;
+    --bad:#c0392b; --bad-bg:#fdeceb; --bad-line:#f1b6b0;
+    --warn:#8a6100; --warn-bg:#fff6e2; --warn-line:#f0d69a;
+    --info:#1b5e8a; --info-bg:#e7f2fb; --info-line:#b6d8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.7;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.top{background:linear-gradient(135deg,#4338ca,#7c6ce8);color:#fff;border-radius:16px;
+    padding:22px 24px;box-shadow:0 6px 20px rgba(67,56,202,.25)}
+  header.top h1{margin:0 0 4px;font-size:22px}
+  header.top p{margin:2px 0;font-size:14px;opacity:.95}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .intro table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  .intro th,.intro td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .intro th{background:#ece9fb}
+  details.theory{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:18px 0}
+  details.theory summary{cursor:pointer;font-weight:700;color:var(--brand-d);font-size:16px}
+  details.theory table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px}
+  details.theory th,details.theory td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  details.theory th{background:#ece9fb}
+  details.theory h3{margin:14px 0 4px;font-size:15px;color:var(--brand-d)}
+  details.theory .ex{background:#f8faff;border-left:3px solid var(--brand);padding:6px 10px;margin:6px 0;font-size:13.5px}
+  section.exsec{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin:20px 0;box-shadow:0 2px 8px rgba(20,30,60,.04)}
+  section.exsec > h2{margin:0 0 6px;font-size:18px;color:var(--brand-d)}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .q{padding:14px 0;border-top:1px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q .orig{font-size:14px;color:var(--muted);margin-bottom:6px;font-style:italic}
+  .q .stem{margin-bottom:6px}
+  .q .stem .num{font-weight:700;color:var(--brand-d);margin-right:4px}
+  input.gap{font:inherit;padding:4px 8px;border:1px solid var(--brand);border-radius:7px;background:#fcfdff;
+    min-width:220px;margin:0 3px}
+  input[type=text].sent{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);
+    border-radius:9px;background:#fcfdff}
+  button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--brand);
+    background:var(--brand);color:#fff;padding:7px 14px;transition:filter .15s}
+  button:hover{filter:brightness(1.1)}
+  button.ghost{background:#fff;color:var(--brand-d)}
+  button.small{padding:4px 10px;font-size:13px}
+  .qbtns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14.5px;display:none}
+  .fb.show{display:block}
+  .fb .why{color:var(--muted);font-style:italic}
+  .fb-good{background:var(--good-bg);border:1px solid var(--good-line);color:#15391f}
+  .fb-bad{background:var(--bad-bg);border:1px solid var(--bad-line);color:#5b1a13}
+  .fb-warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5b4300}
+  .fb-info{background:var(--info-bg);border:1px solid var(--info-line);color:#123a52}
+  .fb ul{margin:6px 0 0;padding-left:20px}
+  .fb li{margin:3px 0}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .tag.ok{background:var(--good-bg);color:var(--good)}
+  .tag.no{background:var(--bad-bg);color:var(--bad)}
+  .tag.hint{background:var(--warn-bg);color:var(--warn)}
+  .section-foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .score{font-weight:700}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.92);backdrop-filter:blur(6px);
+    padding:10px 0;margin:-8px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+  .bar .score{margin-left:auto}
+  @media (max-width:560px){ .bar .score{margin-left:0} input.gap{min-width:170px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>WORKSHEET – LESSON 7</h1>
+    <p>Noun Clause &amp; Relative Clause&nbsp; | &nbsp;Pre-IELTS Foundation</p>
+    <p>Phiên bản bài tập tương tác — làm bài, bấm <b>Chấm bài / Kiểm tra</b> để nhận giải thích lỗi sai.</p>
+  </header>
+
+  <div class="intro">
+    <p style="margin:0">Phiếu bài tập ôn lại 2 nội dung ngữ pháp của <b>Unit 7</b>: <b>Mệnh đề danh từ (Noun clause)</b> và <b>Mệnh đề quan hệ (Relative clause)</b>. Mỗi bài gồm 10 câu.</p>
+    <table>
+      <tr><th>Bài tập</th><th>Trọng tâm</th></tr>
+      <tr><td>Exercise 1</td><td>Noun clause – Viết lại câu (subject / object / complement)</td></tr>
+      <tr><td>Exercise 2</td><td>Relative clause – Kết hợp câu (who/which/that/whose/where/when)</td></tr>
+    </table>
+  </div>
+
+  <details class="theory">
+    <summary>📘 Tóm tắt ngữ pháp — Noun Clause &amp; Relative Clause (bấm để xem lại)</summary>
+    <h3>A. NOUN CLAUSE (Mệnh đề danh từ)</h3>
+    <p style="font-size:13.5px">Một mệnh đề (đủ S+V) đóng vai trò như MỘT DANH TỪ trong câu lớn — làm chủ ngữ, tân ngữ, hoặc bổ ngữ. KHÔNG bổ nghĩa cho danh từ nào.</p>
+    <table>
+      <tr><th>Từ nối</th><th>Ý nghĩa / cách dùng</th></tr>
+      <tr><td>that</td><td>rằng... (giới thiệu 1 ý kiến, sự thật)</td></tr>
+      <tr><td>what, who, when, where, why, how</td><td>các từ để hỏi — dùng khi câu gốc là câu hỏi Wh-</td></tr>
+      <tr><td>whether / if</td><td>có... hay không</td></tr>
+      <tr><td>whoever, whatever, whichever</td><td>bất cứ ai/điều gì/cái nào</td></tr>
+      <tr><td>how many / how much + N</td><td>bao nhiêu (số lượng)</td></tr>
+    </table>
+    <div class="ex">Subject: <i>What she said surprised everyone.</i> / <i>Whether the plan works remains to be seen.</i></div>
+    <div class="ex">Object: <i>I don't know why he left.</i></div>
+    <div class="ex">Complement (sau "be"): <i>My biggest concern is whether the flight will be delayed.</i></div>
+    <p style="font-size:13.5px"><b>Lưu ý:</b> Mệnh đề danh từ giữ TRẬT TỰ KHẲNG ĐỊNH (không đảo ngữ như câu hỏi), không dùng do/does/did.</p>
+
+    <h3>B. RELATIVE CLAUSE (Mệnh đề quan hệ)</h3>
+    <p style="font-size:13.5px">Mệnh đề đứng ngay sau một danh từ để BỔ NGHĨA cho danh từ đó. Bỏ mệnh đề này đi, câu vẫn đủ chủ ngữ + động từ.</p>
+    <table>
+      <tr><th>Đại từ</th><th>Thay thế cho</th><th>Ví dụ</th></tr>
+      <tr><td>who</td><td>người (chủ ngữ)</td><td>The man who called you is my uncle.</td></tr>
+      <tr><td>whom</td><td>người (tân ngữ, trang trọng)</td><td>The man whom I met is my uncle.</td></tr>
+      <tr><td>which</td><td>vật, sự việc</td><td>the book which I needed</td></tr>
+      <tr><td>that</td><td>người/vật (mệnh đề XÁC ĐỊNH)</td><td>the book that I needed</td></tr>
+      <tr><td>whose</td><td>sở hữu</td><td>A manager whose experience matched the job.</td></tr>
+      <tr><td>where</td><td>nơi chốn</td><td>the house where I grew up</td></tr>
+      <tr><td>when</td><td>thời gian</td><td>the day when we moved house</td></tr>
+    </table>
+    <p style="font-size:13.5px"><b>Xác định</b> (không phẩy, thông tin cần thiết, có thể dùng "that"): <i>Students who arrive late will not be allowed to enter.</i><br>
+    <b>Không xác định</b> (CÓ phẩy, thông tin phụ, KHÔNG dùng "that"): <i>The book, which the author wrote in just three months, became a bestseller.</i><br>
+    Có thể lược bỏ đại từ quan hệ nếu nó làm TÂN NGỮ trong mệnh đề xác định: <i>the book (that) I had been looking for.</i></p>
+
+    <h3>C. PHÂN BIỆT NHANH</h3>
+    <p style="font-size:13.5px">Thử BỎ mệnh đề khỏi câu: nếu câu MẤT chủ ngữ/tân ngữ, không còn trọn nghĩa → <b>NOUN CLAUSE</b>. Nếu câu vẫn đủ S+V, chỉ mất mô tả thêm → <b>RELATIVE CLAUSE</b>.</p>
+    <div class="ex"><i>What she said surprised everyone.</i> → bỏ "what she said" thì câu mất chủ ngữ → NOUN CLAUSE.</div>
+    <div class="ex"><i>The man who called you yesterday is my uncle.</i> → bỏ mệnh đề, câu vẫn đủ nghĩa ("The man is my uncle") → RELATIVE CLAUSE.</div>
+  </details>
+
+  <div class="bar">
+    <button class="ghost small" onclick="gradeAll()">Chấm toàn bộ</button>
+    <button class="ghost small" onclick="resetAll()">Làm lại từ đầu</button>
+    <span class="score" id="totalScore">Điểm: – / 20</span>
+  </div>
+
+  <!-- ================= EXERCISE 1 ================= -->
+  <section class="exsec" id="ex1">
+    <h2>EXERCISE 1 – Noun Clause</h2>
+    <p class="lead">Rewrite each sentence using a noun clause, keeping the original meaning. Use the given starter.</p>
+    <div id="ex1-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx1()">Chấm cả phần</button>
+      <span class="score" id="ex1-score">– / 10</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 ================= -->
+  <section class="exsec" id="ex2">
+    <h2>EXERCISE 2 – Relative Clause</h2>
+    <p class="lead">Combine each pair of sentences into one sentence using a relative clause (who / which / that / whose / where / when).</p>
+    <div id="ex2-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx2()">Chấm cả phần</button>
+      <span class="score" id="ex2-score">– / 10</span>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:30px">
+    Nguồn: Worksheet_Lesson7_NounClause_RelativeClause.docx — phiên bản tương tác.
+  </p>
+</div>
+
+<script>
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(s){return String(s||'').toLowerCase()
+  .replace(/[.,!?;:"'’‘“”()]/g,' ').replace(/\s*[-–—]\s*/g,' ').replace(/\s+/g,' ').trim();}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+function runTest(test,raw){ return (test instanceof RegExp) ? test.test(raw) : test(raw); }
+
+/* ============ EXERCISE 1 DATA (Noun clause) ============ */
+const EX1=[
+ {orig:"1. The cause of the accident is still unknown.",
+  before:"No one knows ",after:".",
+  sample:"why the accident happened / what caused the accident",
+  tip:'Không dùng "did/does" (giữ trật tự khẳng định): "why + S + V" hoặc "what + V" (khi "what" làm chủ ngữ).',
+  checks:[
+   {label:'Từ nối đúng (why / what)',test:/^\s*(why|what)\b/i,no:'Cần bắt đầu bằng "why" hoặc "what".'},
+   {label:'Không đảo ngữ (không "did/does")',test:t=>!/\b(did|does)\b/i.test(t),no:'Mệnh đề danh từ giữ trật tự khẳng định — không dùng "did/does".'},
+   {label:'Đủ nội dung',test:t=>/accident/i.test(t)&&/(happened|occurred|took place|caused)/i.test(t),no:'Cần nhắc "the accident" và một động từ như "happened/occurred/caused".'}]},
+ {orig:"2. Many experts doubt the plan's effectiveness.",
+  before:"",after:" is doubted by many experts.",
+  sample:"Whether the plan is effective",
+  tip:'"the plan\'s effectiveness" (cụm danh từ) → chuyển thành mệnh đề "whether the plan is effective".',
+  checks:[
+   {label:'Bắt đầu bằng "Whether/If"',test:/^\s*(whether|if)\b/i,no:'Cần bắt đầu bằng "Whether" (hoặc "If").'},
+   {label:'Không phải câu hỏi',test:t=>!/\?/.test(t),no:'Đây là mệnh đề danh từ, không phải câu hỏi — không dùng dấu "?".'},
+   {label:'Đủ nội dung',test:t=>/plan/i.test(t)&&/effect/i.test(t),no:'Cần nhắc "the plan" và "effective".'}]},
+ {orig:"3. Something is clear: the environment needs urgent protection.",
+  before:"What is clear is ",after:".",
+  sample:"that the environment needs urgent protection",
+  tip:'Diễn đạt một sự thật/ý kiến (không phải câu hỏi Wh-) → dùng "that + S + V" làm bổ ngữ sau "is".',
+  checks:[
+   {label:'Bắt đầu bằng "that"',test:/^\s*that\b/i,no:'Cần bắt đầu bằng "that".'},
+   {label:'Đủ nội dung',test:t=>/environment/i.test(t)&&/(protect|urgent)/i.test(t),no:'Cần nhắc "the environment" và "urgent protection/needs".'}]},
+ {orig:"4. The number of applicants is unknown.",
+  before:"Nobody knows ",after:".",
+  sample:"how many applicants there are",
+  tip:'"How many + N" mở đầu mệnh đề chỉ số lượng, theo sau là trật tự khẳng định "there are" (không đảo thành "are there").',
+  checks:[
+   {label:'Bắt đầu bằng "how many"',test:/^\s*how many\b/i,no:'Cần bắt đầu bằng "how many".'},
+   {label:'Không đảo ngữ ("there are")',test:t=>!/\bare there\b/i.test(t),no:'Giữ trật tự khẳng định "there are", không đảo thành "are there".'},
+   {label:'Đủ nội dung (applicants)',test:/applicants/i,no:'Cần nhắc "applicants".'}]},
+ {orig:"5. I think schools should teach financial literacy.",
+  before:"My opinion is ",after:".",
+  sample:"that schools should teach financial literacy",
+  tip:'Diễn đạt quan điểm sau "My opinion is" → "that + S + V", giữ nguyên nội dung câu gốc.',
+  checks:[
+   {label:'Bắt đầu bằng "that"',test:/^\s*that\b/i,no:'Cần bắt đầu bằng "that".'},
+   {label:'Đủ nội dung',test:t=>/schools?/i.test(t)&&/teach/i.test(t)&&/financial literacy/i.test(t),no:'Cần giữ đủ ý: "schools should teach financial literacy".'}]},
+ {orig:"6. The reason for her resignation remains a mystery.",
+  before:"It remains a mystery ",after:".",
+  sample:"why she resigned",
+  tip:'"the reason for her resignation" → chuyển thành mệnh đề "why she resigned".',
+  checks:[
+   {label:'Bắt đầu bằng "why"',test:/^\s*why\b/i,no:'Cần bắt đầu bằng "why".'},
+   {label:'Không đảo ngữ (không "did")',test:t=>!/\bdid\b/i.test(t),no:'Không dùng "did" — giữ trật tự khẳng định: "why she resigned".'},
+   {label:'Đủ nội dung',test:t=>/she/i.test(t)&&/(resign|quit|left)/i.test(t),no:'Cần nhắc "she" và "resigned/quit/left".'}]},
+ {orig:"7. People are unsure if the new law will reduce crime.",
+  before:"",after:" remains uncertain.",
+  sample:"Whether the new law will reduce crime",
+  tip:'Mệnh đề danh từ làm CHỦ NGỮ nên ưu tiên "Whether" (thay vì "if") khi đứng đầu câu.',
+  checks:[
+   {label:'Bắt đầu bằng "Whether"',test:/^\s*whether\b/i,no:'Cần bắt đầu bằng "Whether".'},
+   {label:'Không phải câu hỏi',test:t=>!/\?/.test(t),no:'Không dùng dấu "?".'},
+   {label:'Đủ nội dung',test:t=>/new law/i.test(t)&&/reduce/i.test(t)&&/crime/i.test(t),no:'Cần giữ đủ ý: "the new law will reduce crime".'}]},
+ {orig:"8. Something worries parents: children spend too much time online.",
+  before:"What worries parents is ",after:".",
+  sample:"that children spend too much time online",
+  tip:'Bổ ngữ sau "is" diễn đạt một sự thật → "that + S + V".',
+  checks:[
+   {label:'Bắt đầu bằng "that"',test:/^\s*that\b/i,no:'Cần bắt đầu bằng "that".'},
+   {label:'Đủ nội dung',test:t=>/children/i.test(t)&&/spend/i.test(t)&&/online/i.test(t),no:'Cần giữ đủ ý: "children spend too much time online".'}]},
+ {orig:"9. The method the scientists used is unclear.",
+  before:"It is unclear ",after:".",
+  sample:"how the scientists conducted the experiment / what method the scientists used",
+  tip:'Có thể dùng "how + S + V" (cách thức) hoặc "what method + S + V".',
+  checks:[
+   {label:'Bắt đầu bằng "how" / "what method"',test:/^\s*(how|what method)\b/i,no:'Cần bắt đầu bằng "how" hoặc "what method".'},
+   {label:'Không đảo ngữ (không "did")',test:t=>!/\bdid\b/i.test(t),no:'Không dùng "did" — giữ trật tự khẳng định.'},
+   {label:'Đủ nội dung',test:t=>/scientists?/i.test(t)&&/(used|conducted)/i.test(t),no:'Cần nhắc "the scientists" và "used/conducted".'}]},
+ {orig:"10. Many believe that renewable energy is the future.",
+  before:"",after:" is a common belief.",
+  sample:"That renewable energy is the future",
+  tip:'Mệnh đề danh từ làm chủ ngữ bắt đầu bằng "That" (viết hoa vì đứng đầu câu) — không lược bỏ "that" như khi làm tân ngữ.',
+  checks:[
+   {label:'Bắt đầu bằng "That" (viết hoa)',test:/^That\b/,no:'Cần viết hoa và bắt đầu bằng "That" (vì đứng đầu câu).'},
+   {label:'Không phải câu hỏi',test:t=>!/\?/.test(t),no:'Không dùng dấu "?".'},
+   {label:'Đủ nội dung',test:t=>/renewable energy/i.test(t)&&/future/i.test(t),no:'Cần giữ đủ ý: "renewable energy is the future".'}]}
+];
+
+/* ============ EXERCISE 2 DATA (Relative clause) ============ */
+const EX2=[
+ {s1:"I have a neighbour.",s2:"She teaches piano lessons at home.",
+  sample:"I have a neighbour who teaches piano lessons at home.",
+  pronounRe:/\bwho\b/i, mustNotHave:/\bshe\b/i,
+  keywords:['neighbour','teach','piano'],
+  why:'"neighbour" là người, làm chủ ngữ trong câu 2 ("She teaches...") → dùng "who".'},
+ {s1:"We visited a village.",s2:"It is famous for its traditional pottery.",
+  sample:"We visited a village which/that is famous for its traditional pottery.",
+  pronounRe:/\b(which|that)\b/i, mustNotHave:/\bvillage\s*[.]\s*it\b/i,
+  keywords:['village','famous','pottery'],
+  why:'"village" là vật/địa danh → dùng "which" hoặc "that".'},
+ {s1:"This is the café.",s2:"My parents met here for the first time.",
+  sample:"This is the café where my parents met for the first time.",
+  pronounRe:/\bwhere\b/i, mustNotHave:/\bhere\b/i,
+  keywords:['café','parents','met'],
+  why:'"café" là nơi chốn, mệnh đề sau có trạng từ "here" chỉ nơi chốn → thay bằng "where" và bỏ "here".'},
+ {s1:"The scientist won a Nobel Prize.",s2:"Her research changed modern medicine.",
+  sample:"The scientist whose research changed modern medicine won a Nobel Prize.",
+  pronounRe:/\bwhose\b/i, mustNotHave:/\bher research\b/i,
+  keywords:['scientist','research','modern medicine','nobel'],
+  why:'"Her research" (sở hữu của "the scientist") → dùng "whose research"; mệnh đề chen vào giữa câu 1.'},
+ {s1:"I remember the day.",s2:"We moved into our new house on that day.",
+  sample:"I remember the day when we moved into our new house.",
+  pronounRe:/\bwhen\b/i, mustNotHave:/\bon that day\b/i,
+  keywords:['day','moved','new house'],
+  why:'"the day" là thời gian, và "on that day" dư thừa → thay bằng "when" và bỏ cụm đó.'},
+ {s1:"The company hired an engineer.",s2:"His designs had won several awards.",
+  sample:"The company hired an engineer whose designs had won several awards.",
+  pronounRe:/\bwhose\b/i, mustNotHave:/\bhis designs\b/i,
+  keywords:['engineer','designs','awards'],
+  why:'"His designs" (sở hữu của "the engineer") → dùng "whose designs".'},
+ {s1:"She finally answered the question.",s2:"I had asked her the question earlier.",
+  sample:"She finally answered the question (that/which) I had asked her earlier.",
+  pronounRe:/\b(that|which)\b/i, pronounOptional:true,
+  mustNotHave:/the question\b[\s\S]*\bthe question\b/i,
+  keywords:['question','asked','earlier'],
+  why:'"the question" bị lặp lại lần 2 → thay bằng "that/which" hoặc lược bỏ (vì làm tân ngữ trong mệnh đề xác định).'},
+ {s1:"The book became a bestseller.",s2:"The author wrote it in just three months.",
+  sample:"The book, which the author wrote in just three months, became a bestseller.",
+  pronounRe:/\bwhich\b/i, forbidRe:/\bthat\b/i, requireComma:true, mustNotHave:/\bwrote it\b/i,
+  keywords:['book','author','wrote','three months','bestseller'],
+  why:'Mệnh đề KHÔNG XÁC ĐỊNH (bỏ đi câu vẫn rõ nghĩa "The book became a bestseller") → phải có DẤU PHẨY hai bên và KHÔNG dùng "that".'},
+ {s1:"I'm looking for a restaurant.",s2:"It serves vegetarian food near the station.",
+  sample:"I'm looking for a restaurant that/which serves vegetarian food near the station.",
+  pronounRe:/\b(that|which)\b/i, mustNotHave:/\bit serves\b/i,
+  keywords:['restaurant','vegetarian','station'],
+  why:'"restaurant" là vật → "that/which"; đây là mệnh đề xác định (không phẩy) nên có thể dùng "that".'},
+ {s1:"He grew up in a small town.",s2:"The town has a beautiful lake.",
+  sample:"He grew up in a small town which/that has a beautiful lake.",
+  pronounRe:/\b(which|that)\b/i, mustNotHave:/\bthe town has\b/i,
+  keywords:['town','lake'],
+  why:'"the town" lặp lại ở câu 2 → thay bằng "which/that".'}
+];
+
+/* ============ RENDER: EX1 ============ */
+function renderEx1(){
+  const box=document.getElementById('ex1-list');
+  EX1.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="orig">${esc(q.orig)}</div>
+      <div class="stem">${esc(q.before)}<input class="gap" id="in1_${i}" autocomplete="off" placeholder="…">${esc(q.after)}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx1One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb1_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx1One(i){
+  const q=EX1[i], fb=document.getElementById('fb1_'+i);
+  const raw=(document.getElementById('in1_'+i).value||'').trim();
+  if(!raw){setFb(fb,'fb-warn','Em chưa điền đáp án.');return false;}
+  const rows=[]; let allOk=true;
+  q.checks.forEach(ck=>{
+    const ok=runTest(ck.test,raw);
+    if(!ok)allOk=false;
+    rows.push(`<li><span class="tag ${ok?'ok':'no'}">${ok?'✓':'✗'}</span><b>${esc(ck.label)}:</b> ${ok?'đạt.':esc(ck.no)}</li>`);
+  });
+  const cls=allOk?'fb-good':'fb-bad';
+  let html=`<b>${allOk?'Đạt yêu cầu!':'Cần chỉnh — xem các điểm ✗.'}</b><ul>${rows.join('')}</ul>`;
+  html+=`<div style="margin-top:6px"><b>Gợi ý đáp án:</b> ${esc(q.before)}${esc(q.sample)}${esc(q.after)}</div>`;
+  html+=`<div class="why" style="margin-top:4px">Ghi nhớ: ${esc(q.tip)}</div>`;
+  setFb(fb,cls,html);
+  return allOk;
+}
+function checkEx1(){
+  let s=0;EX1.forEach((q,i)=>{if(checkEx1One(i))s++;});
+  document.getElementById('ex1-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ RENDER: EX2 ============ */
+function renderEx2(){
+  const box=document.getElementById('ex2-list');
+  EX2.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="orig">${i+1}. ${esc(q.s1)} ${esc(q.s2)}</div>
+      <input type="text" class="sent" id="in2_${i}" placeholder="→ …" autocomplete="off">
+      <div class="qbtns"><button class="small" onclick="checkEx2One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb2_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx2One(i){
+  const q=EX2[i], fb=document.getElementById('fb2_'+i);
+  const raw=(document.getElementById('in2_'+i).value||'').trim();
+  if(!raw){setFb(fb,'fb-warn','Em chưa viết câu.');return false;}
+  const na=norm(raw);
+  const rows=[]; let allOk=true;
+
+  let pronounOk = q.pronounRe.test(raw);
+  if(q.forbidRe && q.forbidRe.test(raw)) pronounOk=false;
+  if(q.pronounOptional && !pronounOk) pronounOk = !q.mustNotHave.test(raw);
+  if(!pronounOk)allOk=false;
+  rows.push(`<li><span class="tag ${pronounOk?'ok':'no'}">${pronounOk?'✓':'✗'}</span><b>Đại từ quan hệ:</b> ${pronounOk?'phù hợp.':(q.forbidRe&&q.forbidRe.test(raw)?'không được dùng "that" ở đây (mệnh đề không xác định).':'chưa thấy đại từ quan hệ phù hợp.')}</li>`);
+
+  const leftoverOk = !q.mustNotHave.test(raw);
+  if(!leftoverOk)allOk=false;
+  rows.push(`<li><span class="tag ${leftoverOk?'ok':'no'}">${leftoverOk?'✓':'✗'}</span><b>Không lặp/thừa từ:</b> ${leftoverOk?'đã thay thế đúng.':'còn sót từ lẽ ra phải được thay bằng đại từ quan hệ (hoặc câu 2 chưa được ghép vào).'}</li>`);
+
+  const kwOk=q.keywords.every(k=>na.includes(norm(k)));
+  if(!kwOk)allOk=false;
+  rows.push(`<li><span class="tag ${kwOk?'ok':'no'}">${kwOk?'✓':'✗'}</span><b>Đủ nội dung:</b> ${kwOk?'giữ đủ ý hai câu gốc.':'còn thiếu một số ý quan trọng từ câu gốc.'}</li>`);
+
+  if(q.requireComma){
+    const commaOk=(raw.match(/,/g)||[]).length>=2;
+    if(!commaOk)allOk=false;
+    rows.push(`<li><span class="tag ${commaOk?'ok':'no'}">${commaOk?'✓':'✗'}</span><b>Dấu phẩy (mệnh đề không xác định):</b> ${commaOk?'có đủ 2 dấu phẩy bao quanh mệnh đề.':'mệnh đề KHÔNG XÁC ĐỊNH cần 2 dấu phẩy bao quanh.'}</li>`);
+  }
+
+  const sentenceCount=(raw.match(/[.!?]/g)||[]).length;
+  const oneSentenceOk=sentenceCount<=1;
+  if(!oneSentenceOk)allOk=false;
+  rows.push(`<li><span class="tag ${oneSentenceOk?'ok':'no'}">${oneSentenceOk?'✓':'✗'}</span><b>Đã ghép thành 1 câu:</b> ${oneSentenceOk?'đúng, chỉ 1 câu.':'có vẻ vẫn còn 2 câu tách rời — cần ghép lại bằng mệnh đề quan hệ.'}</li>`);
+
+  const cls=allOk?'fb-good':'fb-bad';
+  let html=`<b>${allOk?'Đạt yêu cầu!':'Cần chỉnh — xem các điểm ✗.'}</b><ul>${rows.join('')}</ul>`;
+  html+=`<div style="margin-top:6px"><b>Gợi ý đáp án:</b> ${esc(q.sample)}</div>`;
+  html+=`<div class="why" style="margin-top:4px">Ghi nhớ: ${esc(q.why)}</div>`;
+  setFb(fb,cls,html);
+  return allOk;
+}
+function checkEx2(){
+  let s=0;EX2.forEach((q,i)=>{if(checkEx2One(i))s++;});
+  document.getElementById('ex2-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ totals ============ */
+function num(txt){const m=String(txt).match(/(-?\d+)\s*\/\s*\d+/);return m?+m[1]:null;}
+function updateTotal(){
+  const a=num(document.getElementById('ex1-score').textContent);
+  const b=num(document.getElementById('ex2-score').textContent);
+  if(a===null&&b===null){document.getElementById('totalScore').textContent='Điểm: – / 20';return;}
+  document.getElementById('totalScore').textContent='Điểm: '+((a||0)+(b||0))+' / 20';
+}
+function gradeAll(){checkEx1();checkEx2();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){
+  if(!confirm('Xoá toàn bộ câu trả lời và làm lại từ đầu?'))return;
+  document.querySelectorAll('input.gap, input[type=text].sent').forEach(x=>x.value='');
+  document.querySelectorAll('.fb').forEach(f=>{f.className='fb';f.innerHTML='';});
+  document.getElementById('ex1-score').textContent='– / 10';
+  document.getElementById('ex2-score').textContent='– / 10';
+  updateTotal();
+}
+
+/* ============ init ============ */
+renderEx1();renderEx2();
+</script>
+</body>
+</html>
