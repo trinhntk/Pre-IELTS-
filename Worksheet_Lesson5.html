@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet – Lesson 5: Gadgets (Interactive)</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2733; --muted:#5b6675;
+    --line:#e2e7f0; --brand:#0e7c8c; --brand-d:#0a5f6c;
+    --good:#1a7f3c; --good-bg:#e7f6ec; --good-line:#9dd8b0;
+    --bad:#c0392b; --bad-bg:#fdeceb; --bad-line:#f1b6b0;
+    --warn:#8a6100; --warn-bg:#fff6e2; --warn-line:#f0d69a;
+    --info:#1b5e8a; --info-bg:#e7f2fb; --info-line:#b6d8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.7;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+  header.top{background:linear-gradient(135deg,#0e7c8c,#38b6c9);color:#fff;border-radius:16px;
+    padding:22px 24px;box-shadow:0 6px 20px rgba(14,124,140,.25)}
+  header.top h1{margin:0 0 4px;font-size:22px}
+  header.top p{margin:2px 0;font-size:14px;opacity:.95}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .intro table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  .intro th,.intro td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .intro th{background:#e6f4f6}
+  section.ex{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin:20px 0;box-shadow:0 2px 8px rgba(20,30,60,.04)}
+  section.ex > h2{margin:0 0 6px;font-size:18px;color:var(--brand-d)}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .q{padding:14px 0;border-top:1px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q .stem{font-weight:600;margin-bottom:8px}
+  .words{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
+  .chip{background:#e6f4f6;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:14px;color:var(--brand-d)}
+  input[type=text].sent{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);
+    border-radius:9px;background:#fcfdff}
+  input.gap{font:inherit;padding:4px 8px;border:1px solid var(--brand);border-radius:7px;background:#fcfdff;
+    min-width:150px;margin:0 3px}
+  .passage{background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px}
+  button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--brand);
+    background:var(--brand);color:#fff;padding:7px 14px;transition:filter .15s}
+  button:hover{filter:brightness(1.07)}
+  button.ghost{background:#fff;color:var(--brand-d)}
+  button.small{padding:4px 10px;font-size:13px}
+  .qbtns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14.5px;display:none}
+  .fb.show{display:block}
+  .fb .why{color:var(--muted);font-style:italic}
+  .fb-good{background:var(--good-bg);border:1px solid var(--good-line);color:#15391f}
+  .fb-bad{background:var(--bad-bg);border:1px solid var(--bad-line);color:#5b1a13}
+  .fb-warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5b4300}
+  .fb-info{background:var(--info-bg);border:1px solid var(--info-line);color:#123a52}
+  .fb ul{margin:6px 0 0;padding-left:20px}
+  .fb li{margin:3px 0}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .tag.ok{background:var(--good-bg);color:var(--good)}
+  .tag.no{background:var(--bad-bg);color:var(--bad)}
+  .tag.hint{background:var(--warn-bg);color:var(--warn)}
+  .section-foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .score{font-weight:700}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.92);backdrop-filter:blur(6px);
+    padding:10px 0;margin:-8px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+  .bar .score{margin-left:auto}
+  code{background:#eef2fb;padding:1px 5px;border-radius:5px;font-size:13px}
+  .cheat{font-size:13px;color:var(--muted);margin-top:8px}
+  @media (max-width:560px){ .bar .score{margin-left:0} input.gap{min-width:120px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>WORKSHEET – LESSON 5</h1>
+    <p>Gadgets &amp; Comparatives / Superlatives&nbsp; | &nbsp;Pre-IELTS Foundation</p>
+    <p>Phiên bản bài tập tương tác — làm bài, bấm <b>Kiểm tra</b> để nhận giải thích lỗi sai.</p>
+  </header>
+
+  <div class="intro">
+    <p style="margin:0">Phiếu bài tập ôn lại từ vựng <b>Unit 5 – Gadgets</b> và ngữ pháp <b>So sánh hơn – So sánh nhất</b> (Comparatives &amp; Superlatives) ở Note 8.8 và tài liệu <i>Comparing things</i>. Theo format bài Mid-course Test.</p>
+    <table>
+      <tr><th>Bài tập</th><th>Trọng tâm</th><th>Kỹ năng liên quan</th></tr>
+      <tr><td>Exercise 1</td><td>Word order</td><td>Sắp xếp từ thành câu hoàn chỉnh (10 câu)</td></tr>
+      <tr><td>Exercise 2</td><td>Comparatives &amp; Superlatives</td><td>Chia đúng dạng so sánh – 2 đoạn x 5 câu</td></tr>
+    </table>
+    <div class="cheat">
+      <b>Ghi nhớ nhanh về so sánh:</b>
+      Tính từ/trạng từ NGẮN (1 âm tiết, hoặc 2 âm tiết tận cùng -y/-le/-ow/-er) → <b>adj+er / adj+est</b>.
+      DÀI (≥2–3 âm tiết, hầu hết trạng từ -ly) → <b>more/most + adj</b>.
+      Bất quy tắc: good/well → <b>better/best</b>; bad/badly → <b>worse/worst</b>; far → <b>farther–farthest</b>.
+      So sánh bằng: <b>as + adj + as</b> / phủ định <b>not as + adj + as</b>.
+    </div>
+  </div>
+
+  <div class="bar">
+    <button class="ghost small" onclick="gradeAll()">Chấm toàn bộ</button>
+    <button class="ghost small" onclick="resetAll()">Làm lại từ đầu</button>
+    <span class="score" id="totalScore">Điểm: – / 20</span>
+  </div>
+
+  <!-- ================= EXERCISE 1 ================= -->
+  <section class="ex" id="ex1">
+    <h2>EXERCISE 1 – Sắp xếp từ thành câu hoàn chỉnh</h2>
+    <p class="lead">Rearrange the words below to make complete, correctly punctuated sentences. Ví dụ: <i>happy / very / today / I / am / .</i> → <b>I am very happy today.</b></p>
+    <div id="ex1-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx1()">Kiểm tra cả phần</button>
+      <span class="score" id="ex1-score">– / 10</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 ================= -->
+  <section class="ex" id="ex2">
+    <h2>EXERCISE 2 – Chia đúng dạng so sánh của tính từ/trạng từ trong ngoặc</h2>
+    <p class="lead">Complete the excerpts with the correct comparative or superlative form of the word in brackets.</p>
+    <div id="ex2-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx2()">Kiểm tra cả phần</button>
+      <span class="score" id="ex2-score">– / 10</span>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:30px">
+    Nguồn: Worksheet_Lesson5_Gadgets.docx — phiên bản tương tác.
+  </p>
+</div>
+
+<script>
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(s){return String(s||'').toLowerCase()
+  .replace(/[.,!?;:"'’‘“”()]/g,' ').replace(/\s*[-–—]\s*/g,' ').replace(/\s+/g,' ').trim();}
+function tokensSorted(s){return norm(s).split(' ').filter(Boolean).sort().join(' ');}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+const AUX_WORDS=['the','a','an','as','than','is','are','was','were','more','most','less','least','not'];
+function answerMatches(a,x){
+  if(a===x)return true;
+  if(a.endsWith(' '+x)){
+    const before=a.slice(0,a.length-x.length-1).trim().split(' ').pop();
+    if(before && AUX_WORDS.includes(before))return false;
+    return true;
+  }
+  if(a.startsWith(x+' '))return true;
+  return false;
+}
+
+/* ============ EXERCISE 1 DATA ============ */
+const EX1=[
+ {w:"the contractor / secured / a good deal / after / lengthy negotiations / .",
+  a:"The contractor secured a good deal after lengthy negotiations.",
+  rule:'S ("The contractor") + V ("secured") + tân ngữ ("a good deal") + cụm giới từ ("after lengthy negotiations").'},
+ {w:"the organization / has suspended / all operations / until / more funding / becomes available / .",
+  a:"The organization has suspended all operations until more funding becomes available.",
+  rule:'S + V (hiện tại hoàn thành: "has suspended") + tân ngữ + mệnh đề "until" (S + V ở hiện tại đơn: "becomes available").'},
+ {w:"this device / allows / us / to convey / messages / across / a long distance / .",
+  a:"This device allows us to convey messages across a long distance.",
+  rule:'"allow + ai + to V": S + "allows" + tân ngữ ("us") + "to convey" + tân ngữ ("messages") + cụm giới từ.'},
+ {w:"the diameter / of / the cylinder / is / larger / than / its height / .",
+  a:"The diameter of the cylinder is larger than its height.",
+  rule:'Cụm chủ ngữ "the diameter of the cylinder" + "is" + so sánh hơn "larger than" + vế so sánh.'},
+ {w:"why / did / the team / decide / to reinforce / the bridge / with / extra materials / ?",
+  a:"Why did the team decide to reinforce the bridge with extra materials?",
+  rule:'Câu hỏi Wh- dùng "did": "Why" + "did" + chủ ngữ + động từ nguyên thể ("decide") + "to reinforce" + tân ngữ + cụm giới từ.'},
+ {w:"you / may need / to adjust / the volume / of the microphone / .",
+  a:"You may need to adjust the volume of the microphone.",
+  rule:'S + modal "may" + "need" + "to adjust" + tân ngữ + cụm giới từ "of the microphone".'},
+ {w:"if / we / launch / the product / too early / we / won't / maximize / sales / .",
+  a:"If we launch the product too early, we won't maximize sales.",
+  rule:'Câu điều kiện: mệnh đề "If" (hiện tại đơn) đứng trước, có dấu phẩy, rồi đến mệnh đề chính ("we won\'t maximize sales").'},
+ {w:"the notion / that / gadgets / make / life / easier / is / widely accepted / .",
+  a:"The notion that gadgets make life easier is widely accepted.",
+  rule:'Chủ ngữ dài có mệnh đề "that" bổ nghĩa ("the notion that gadgets make life easier") rồi mới đến động từ chính "is widely accepted".'},
+ {w:"a sheet / of photographic paper / curves / round / the inside / of the cylinder / .",
+  a:"A sheet of photographic paper curves round the inside of the cylinder.",
+  rule:'Cụm chủ ngữ "a sheet of photographic paper" + động từ "curves" + cụm giới từ "round the inside of the cylinder".'},
+ {w:"how / does / the radius / of a circle / affect / its circumference / ?",
+  a:"How does the radius of a circle affect its circumference?",
+  rule:'Câu hỏi Wh- dùng "does": "How" + "does" + chủ ngữ ("the radius of a circle") + động từ nguyên thể "affect" + tân ngữ.'}
+];
+
+/* ============ EXERCISE 2 DATA ============ */
+const EX2=[
+ {title:"Part 2.1 — IELTS Speaking Part 3 — Topic: Gadgets",
+  segs:["Well, modern smartphones are much (1) ","(advanced) than older mobile phones. For example, the camera on my new phone takes (2) ","(good) photos than my old one, and this year's models are (3) ","(light) than the phones from ten years ago, which makes them easier to carry around. However, I don't think the new design is (4) ","(attractive) as the previous one, to be honest. In my opinion, the (5) ","(important) feature of any gadget is still how reliable it is, not just how many functions it has."],
+  blanks:[
+   {accepts:["more advanced"],rule:'Tính từ dài (3 âm tiết) → "more + adj": "more advanced".'},
+   {accepts:["better"],rule:'So sánh hơn bất quy tắc của "good" → "better" (không phải "more good"/"gooder").'},
+   {accepts:["lighter"],rule:'Tính từ ngắn (1 âm tiết) → "adj+er": "light" → "lighter".'},
+   {accepts:["as attractive"],rule:'So sánh bằng phủ định: "not (as) attractive as" — câu đã có "as … the previous one" nên chỗ trống là "as attractive".'},
+   {accepts:["most important"],rule:'Tính từ dài → "the most + adj" (chữ "the" đã có sẵn trong câu) → chỗ trống là "most important".'}
+  ]},
+ {title:"Part 2.2 — IELTS Speaking Part 2 — Cue Card: Describe a useful gadget you own",
+  segs:["I'd like to talk about my wireless earphones, which I think are the (1) ","(useful) gadget I own. Compared to my old wired headphones, they are definitely (2) ","(convenient) because I don't have to deal with tangled cables anymore. The sound quality is also (3) ","(good) than I expected, especially for the price. I bought them because my previous earphones broke (4) ","(quickly) than any other pair I've owned. Nowadays, I use them almost every day, and I honestly can't imagine going back to (5) ","(old) technology."],
+  blanks:[
+   {accepts:["most useful"],rule:'Tính từ dài/2 âm tiết → "the most + adj" ("the" đã có sẵn) → chỗ trống là "most useful".'},
+   {accepts:["more convenient"],rule:'Tính từ dài → "more + adj": "more convenient".'},
+   {accepts:["better"],rule:'So sánh hơn bất quy tắc của "good" → "better".'},
+   {accepts:["more quickly"],rule:'Trạng từ đuôi -ly → "more + adv": "more quickly".'},
+   {accepts:["older"],rule:'Tính từ ngắn → "adj+er": "old" → "older".'}
+  ]}
+];
+
+/* ============ RENDER: EX1 ============ */
+function renderEx1(){
+  const box=document.getElementById('ex1-list');
+  EX1.forEach((q,i)=>{
+    const chips=q.w.split('/').map(x=>`<span class="chip">${esc(x.trim())}</span>`).join('');
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem">${i+1}.</div>
+      <div class="words">${chips}</div>
+      <input type="text" class="sent" id="in1_${i}" placeholder="→ …" autocomplete="off">
+      <div class="qbtns"><button class="small" onclick="checkEx1One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb1_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx1One(i){
+  const q=EX1[i], fb=document.getElementById('fb1_'+i);
+  const raw=document.getElementById('in1_'+i).value.trim();
+  if(!raw){setFb(fb,'fb-warn','Em chưa viết câu.');return false;}
+  const nA=norm(q.a), nU=norm(raw);
+  if(nA===nU){
+    const punct=/^[A-Z]/.test(raw)&&/[.!?]$/.test(raw);
+    setFb(fb,'fb-good',`<b>Chính xác!</b> ${esc(q.a)}`+(punct?'':'<br><span class="why">Nhớ viết hoa đầu câu và đúng dấu câu cuối câu (. hoặc ?).</span>'));
+    return true;
+  }
+  if(tokensSorted(raw)===tokensSorted(q.a)){
+    setFb(fb,'fb-bad',`<b>Sai trật tự từ.</b> Em dùng đúng các từ nhưng thứ tự chưa chuẩn.<br>Quy tắc: <span class="why">${esc(q.rule)}</span><br>Đáp án: <b>${esc(q.a)}</b>`);
+    return false;
+  }
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> Câu của em thiếu / thừa / sai từ so với bộ từ đã cho.<br>Quy tắc: <span class="why">${esc(q.rule)}</span><br>Đáp án: <b>${esc(q.a)}</b>`);
+  return false;
+}
+function checkEx1(){
+  let s=0;EX1.forEach((q,i)=>{if(checkEx1One(i))s++;});
+  document.getElementById('ex1-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ RENDER: EX2 ============ */
+function renderEx2(){
+  const box=document.getElementById('ex2-list');
+  EX2.forEach((p,pi)=>{
+    let html=`<div class="stem" style="font-weight:600">${esc(p.title)}</div><div class="passage">`;
+    p.segs.forEach((seg,si)=>{
+      html+=esc(seg);
+      if(si<p.blanks.length) html+=`<input class="gap" id="in2_${pi}_${si}" autocomplete="off" placeholder="(${si+1})">`;
+    });
+    html+='</div>';
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=html+`<div class="qbtns"><button class="small" onclick="checkEx2One(${pi})">Kiểm tra đoạn này</button>
+        <button class="small ghost" onclick="revealEx2(${pi})">Xem đáp án đoạn này</button></div>
+      <div class="fb" id="fb2_${pi}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx2One(pi){
+  const p=EX2[pi], fb=document.getElementById('fb2_'+pi);
+  let got=0; const lines=[];
+  p.blanks.forEach((b,bi)=>{
+    const raw=document.getElementById(`in2_${pi}_${bi}`).value.trim();
+    if(!raw){lines.push(`<li><span class="tag hint">?</span>(${bi+1}) chưa điền.</li>`);return;}
+    const a=norm(raw);
+    const ok=b.accepts.map(norm).some(x=>answerMatches(a,x));
+    if(ok){got++;lines.push(`<li><span class="tag ok">✓</span>(${bi+1}) <b>${esc(raw)}</b> — đúng.<br><span class="why">${esc(b.rule)}</span></li>`);}
+    else lines.push(`<li><span class="tag no">✗</span>(${bi+1}) Chưa đúng. Đáp án: <b>${esc(b.accepts.join(' / '))}</b><br><span class="why">${esc(b.rule)}</span></li>`);
+  });
+  const cls=got===p.blanks.length?'fb-good':(got>0?'fb-warn':'fb-bad');
+  setFb(fb,cls,`<b>Đúng ${got} / ${p.blanks.length}.</b><ul>${lines.join('')}</ul>`);
+  fb.dataset.got=got;
+  return got;
+}
+function revealEx2(pi){
+  const p=EX2[pi], fb=document.getElementById('fb2_'+pi);
+  setFb(fb,'fb-info',`<b>Đáp án – ${esc(p.title)}</b><ul>${
+    p.blanks.map((b,i)=>`<li>(${i+1}) <b>${esc(b.accepts[0])}</b><br><span class="why">${esc(b.rule)}</span></li>`).join('')
+  }</ul>`);
+}
+function checkEx2(){
+  let s=0;EX2.forEach((p,pi)=>{s+=checkEx2One(pi);});
+  document.getElementById('ex2-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ totals ============ */
+function num(txt){const m=String(txt).match(/(-?\d+)\s*\/\s*\d+/);return m?+m[1]:null;}
+function updateTotal(){
+  const a=num(document.getElementById('ex1-score').textContent);
+  const b=num(document.getElementById('ex2-score').textContent);
+  if(a===null&&b===null){document.getElementById('totalScore').textContent='Điểm: – / 20';return;}
+  document.getElementById('totalScore').textContent='Điểm: '+((a||0)+(b||0))+' / 20';
+}
+function gradeAll(){checkEx1();checkEx2();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){
+  if(!confirm('Xoá toàn bộ câu trả lời và làm lại từ đầu?'))return;
+  document.querySelectorAll('input[type=text].sent, input.gap').forEach(x=>x.value='');
+  document.querySelectorAll('.fb').forEach(f=>{f.className='fb';f.innerHTML='';});
+  document.getElementById('ex1-score').textContent='– / 10';
+  document.getElementById('ex2-score').textContent='– / 10';
+  updateTotal();
+}
+
+/* ============ init ============ */
+renderEx1();renderEx2();
+</script>
+</body>
+</html>
