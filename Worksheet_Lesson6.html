@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet – Lesson 6: Cities (Interactive)</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2733; --muted:#5b6675;
+    --line:#e2e7f0; --brand:#946200; --brand-d:#6f4a00;
+    --good:#1a7f3c; --good-bg:#e7f6ec; --good-line:#9dd8b0;
+    --bad:#c0392b; --bad-bg:#fdeceb; --bad-line:#f1b6b0;
+    --warn:#8a6100; --warn-bg:#fff6e2; --warn-line:#f0d69a;
+    --info:#1b5e8a; --info-bg:#e7f2fb; --info-line:#b6d8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.7;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+  header.top{background:linear-gradient(135deg,#946200,#c98f2f);color:#fff;border-radius:16px;
+    padding:22px 24px;box-shadow:0 6px 20px rgba(148,98,0,.25)}
+  header.top h1{margin:0 0 4px;font-size:22px}
+  header.top p{margin:2px 0;font-size:14px;opacity:.95}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .intro table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  .intro th,.intro td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .intro th{background:#f6ecd8}
+  section.ex{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin:20px 0;box-shadow:0 2px 8px rgba(20,30,60,.04)}
+  section.ex > h2{margin:0 0 6px;font-size:18px;color:var(--brand-d)}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .q{padding:14px 0;border-top:1px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q .stem{margin-bottom:8px}
+  .q .stem .num{font-weight:700;color:var(--brand-d);margin-right:4px}
+  .opts{list-style:none;margin:0;padding:0}
+  .opts li{margin:4px 0}
+  .opts label{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);
+    border-radius:9px;cursor:pointer;transition:background .15s}
+  .opts label:hover{background:#fbf6ec}
+  .opts input{margin-top:4px}
+  input.gap{font:inherit;padding:4px 8px;border:1px solid var(--brand);border-radius:7px;background:#fcfdff;
+    min-width:170px;margin:0 3px}
+  input[type=text].sent{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);
+    border-radius:9px;background:#fcfdff}
+  .bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 16px}
+  .bank .chip{background:#f6ecd8;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;color:var(--brand-d)}
+  button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--brand);
+    background:var(--brand);color:#fff;padding:7px 14px;transition:filter .15s}
+  button:hover{filter:brightness(1.1)}
+  button.ghost{background:#fff;color:var(--brand-d)}
+  button.small{padding:4px 10px;font-size:13px}
+  .qbtns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14.5px;display:none}
+  .fb.show{display:block}
+  .fb .why{color:var(--muted);font-style:italic}
+  .fb-good{background:var(--good-bg);border:1px solid var(--good-line);color:#15391f}
+  .fb-bad{background:var(--bad-bg);border:1px solid var(--bad-line);color:#5b1a13}
+  .fb-warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5b4300}
+  .fb-info{background:var(--info-bg);border:1px solid var(--info-line);color:#123a52}
+  .fb ul{margin:6px 0 0;padding-left:20px}
+  .fb li{margin:3px 0}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .tag.ok{background:var(--good-bg);color:var(--good)}
+  .tag.no{background:var(--bad-bg);color:var(--bad)}
+  .tag.hint{background:var(--warn-bg);color:var(--warn)}
+  .section-foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .score{font-weight:700}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.92);backdrop-filter:blur(6px);
+    padding:10px 0;margin:-8px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+  .bar .score{margin-left:auto}
+  code{background:#eef2fb;padding:1px 5px;border-radius:5px;font-size:13px}
+  .cheat{font-size:13px;color:var(--muted);margin-top:8px}
+  @media (max-width:560px){ .bar .score{margin-left:0} input.gap{min-width:140px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>WORKSHEET – LESSON 6</h1>
+    <p>Cities: Connotation, Superordinate &amp; Talking about the Future&nbsp; | &nbsp;Pre-IELTS Foundation</p>
+    <p>Phiên bản bài tập tương tác — làm bài, bấm <b>Kiểm tra</b> để nhận giải thích lỗi sai.</p>
+  </header>
+
+  <div class="intro">
+    <p style="margin:0">Phiếu bài tập ôn lại 3 nội dung của <b>Unit 6 – Cities</b>: <b>Connotation &amp; Denotation</b>, <b>Superordinate (Hypernym)</b>, và cách diễn đạt <b>tương lai</b> (be going to, present simple/continuous, be predicted to, be likely to...). Mỗi bài gồm 5 câu.</p>
+    <table>
+      <tr><th>Bài tập</th><th>Trọng tâm</th></tr>
+      <tr><td>Exercise 1</td><td>Connotation &amp; Denotation</td></tr>
+      <tr><td>Exercise 2</td><td>Superordinate (Hypernym)</td></tr>
+      <tr><td>Exercise 3</td><td>be going to, present simple/continuous &amp; future phrases</td></tr>
+    </table>
+    <div class="cheat">
+      <b>Ghi nhớ nhanh (tương lai):</b>
+      <b>be going to</b> — dự đoán có bằng chứng/dấu hiệu rõ ngay trước mắt.
+      <b>Present simple</b> — lịch trình, thời gian biểu cố định (tàu, xe, lịch chiếu).
+      <b>Present continuous</b> — kế hoạch/lịch hẹn cá nhân đã sắp xếp trước.
+      <b>be predicted to / be likely to / be expected to + V</b> — dự đoán dựa trên số liệu, xu hướng, nghiên cứu.
+    </div>
+  </div>
+
+  <div class="bar">
+    <button class="ghost small" onclick="gradeAll()">Chấm toàn bộ</button>
+    <button class="ghost small" onclick="resetAll()">Làm lại từ đầu</button>
+    <span class="score" id="totalScore">Điểm: – / 15</span>
+  </div>
+
+  <!-- ================= EXERCISE 1 ================= -->
+  <section class="ex" id="ex1">
+    <h2>EXERCISE 1 – Connotation</h2>
+    <p class="lead">Choose the correct word in brackets to complete each sentence, based on the connotation suggested by the context.</p>
+    <div id="ex1-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx1()">Kiểm tra cả phần</button>
+      <span class="score" id="ex1-score">– / 5</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 ================= -->
+  <section class="ex" id="ex2">
+    <h2>EXERCISE 2 – Superordinate (Hypernym)</h2>
+    <p class="lead">Complete the sentences with the correct phrase from the box (mỗi cụm chỉ dùng một lần).</p>
+    <div class="bank" id="ex2-bank"></div>
+    <div id="ex2-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx2()">Kiểm tra cả phần</button>
+      <span class="score" id="ex2-score">– / 5</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 3 ================= -->
+  <section class="ex" id="ex3">
+    <h2>EXERCISE 3 – Talking about the Future</h2>
+    <p class="lead">Put the verb in brackets into the correct form to talk about the future (be going to / present simple / present continuous / future phrase).</p>
+    <div id="ex3-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx3()">Kiểm tra cả phần</button>
+      <span class="score" id="ex3-score">– / 5</span>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:30px">
+    Nguồn: Worksheet_Lesson6_Cities.docx — phiên bản tương tác.
+  </p>
+</div>
+
+<script>
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(s){return String(s||'').toLowerCase()
+  .replace(/[.,!?;:"'’‘“”()]/g,' ').replace(/\s*[-–—]\s*/g,' ').replace(/\s+/g,' ').trim();}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+const AUX_WORDS=['have','has','had','was','were','is','are','am','did','do','does','will','would','should','shall','can','could','not',"n't",'to'];
+function answerMatches(a,x){
+  if(a===x)return true;
+  if(a.endsWith(' '+x)){
+    const before=a.slice(0,a.length-x.length-1).trim().split(' ').pop();
+    if(before && AUX_WORDS.includes(before))return false;
+    return true;
+  }
+  return false;
+}
+
+/* ============ EXERCISE 1 DATA (Connotation) ============ */
+const EX1=[
+ {stem:"He never contributes to gifts or group dinners, even though he earns a good salary; everyone thinks he's incredibly _______.",
+  optA:"frugal",optB:"stingy",correct:1,
+  whyCorrect:'Ngữ cảnh tiêu cực (dư khả năng nhưng không bao giờ đóng góp) → "stingy" (keo kiệt).',
+  whyWrong:'"frugal" mang connotation TÍCH CỰC (biết chi tiêu tiết kiệm hợp lý) — không khớp với hành vi ích kỷ trong câu.'},
+ {stem:"She speaks clearly, makes eye contact, and isn't afraid to voice her opinions in front of the whole class. Her classmates describe her as _______.",
+  optA:"confident",optB:"arrogant",correct:0,
+  whyCorrect:'Hành vi được mô tả tích cực (nói rõ ràng, giao tiếp mắt, dám nêu ý kiến) → "confident" (tự tin).',
+  whyWrong:'"arrogant" mang connotation TIÊU CỰC (tự cao, coi thường người khác) — không có dấu hiệu đó trong câu.'},
+ {stem:"My neighbour is always peeking through his window and asking personal questions about our family; honestly, he's just too _______.",
+  optA:"curious",optB:"nosy",correct:1,
+  whyCorrect:'Hành vi xâm phạm riêng tư (nhìn trộm, hỏi chuyện cá nhân) → connotation TIÊU CỰC "nosy" (tò mò thái quá).',
+  whyWrong:'"curious" mang connotation TÍCH CỰC/trung tính (ham tìm hiểu, ham học hỏi) — nhẹ hơn nhiều so với hành vi xâm phạm ở đây.'},
+ {stem:"The designer's new collection uses recycled materials in a way no one has tried before, giving each piece a _______ style.",
+  optA:"unique",optB:"weird",correct:0,
+  whyCorrect:'Sáng tạo, chưa ai từng làm → connotation TÍCH CỰC "unique" (độc đáo).',
+  whyWrong:'"weird" mang connotation TIÊU CỰC (kỳ quặc, khó chấp nhận) — không phù hợp với sự khen ngợi sáng tạo trong câu.'},
+ {stem:"This 1960s record player still works perfectly and gives the living room a _______ feel.",
+  optA:"vintage",optB:"antiquated",correct:0,
+  whyCorrect:'Vẫn hoạt động tốt, mang lại cảm giác đẹp/hoài cổ → connotation TÍCH CỰC "vintage" (phong cách cổ điển đáng trân trọng).',
+  whyWrong:'"antiquated" mang connotation TIÊU CỰC (lỗi thời, lạc hậu, không dùng được) — trái ngược với việc máy "vẫn hoạt động hoàn hảo".'}
+];
+
+/* ============ EXERCISE 2 DATA (Superordinate) ============ */
+const EX2BANK=["this policy","this sector","these facilities","this trend","this task"];
+const EX2=[
+ {stem:"The government has decided to lower taxes for companies that invest in renewable energy. __________ aims to encourage more businesses to adopt eco-friendly practices.",
+  answer:"this policy",
+  why:'"lower taxes for companies..." là một quyết định/chính sách của chính phủ → từ bao quát "this policy".'},
+ {stem:"Every week, employees must submit a detailed report summarizing their progress on ongoing projects. __________ often takes several hours to complete.",
+  answer:"this task",
+  why:'"submit a detailed report..." là một công việc/nhiệm vụ cụ thể → từ bao quát "this task".'},
+ {stem:"Tourism contributes billions of dollars to the national economy every year, and __________ continues to attract significant government investment.",
+  answer:"this sector",
+  why:'"Tourism" là một ngành/lĩnh vực kinh tế → từ bao quát "this sector".'},
+ {stem:"More and more people are choosing to work from home instead of commuting to an office. __________ has changed the way companies organize their staff.",
+  answer:"this trend",
+  why:'"More and more people choosing to..." mô tả một xu hướng đang gia tăng → từ bao quát "this trend".'},
+ {stem:"The new hospital includes a large emergency department, several operating theatres, and a modern maternity ward. __________ are expected to serve over 200,000 residents in the area.",
+  answer:"these facilities",
+  why:'Liệt kê nhiều cơ sở vật chất cụ thể (emergency department, operating theatres, maternity ward) → từ bao quát SỐ NHIỀU "these facilities".'}
+];
+
+/* ============ EXERCISE 3 DATA (Future) ============ */
+const EX3=[
+ {text:"Look at the queue outside the store — the new phone _______ (sell) out within hours.",
+  accepts:["is going to sell"], tense:"be going to",
+  why:'Có bằng chứng rõ ngay trước mắt ("the queue outside the store") → dự đoán có căn cứ dùng "be going to": "is going to sell out".',
+  bad:[{test:/\bwill sell\b/,msg:'"will" thường dùng cho dự đoán KHÔNG có bằng chứng cụ thể hoặc quyết định tức thời. Ở đây có bằng chứng rõ (hàng đang xếp hàng) → nên dùng "be going to".'},
+       {test:/^sells$/,msg:'Hiện tại đơn dùng cho lịch trình cố định, không phù hợp với một dự đoán có căn cứ như thế này.'}]},
+ {text:"The last bus to the city centre _______ (leave) at 11:15 tonight, so we need to hurry.",
+  accepts:["leaves"], tense:"Present simple",
+  why:'"11:15 tonight" là giờ theo lịch trình cố định (giờ xe buýt) → hiện tại đơn: "leaves".',
+  bad:[{test:/\bis going to leave\b/,msg:'Đây là lịch trình cố định (giờ xe buýt) → dùng hiện tại đơn "leaves", không phải "be going to".'},
+       {test:/\bwill leave\b/,msg:'Lịch trình cố định (giờ xe buýt, tàu, máy bay) thường diễn đạt bằng hiện tại đơn, không phải "will".'}]},
+ {text:"I can't come to the meeting on Friday because I _______ (visit) the dentist that afternoon.",
+  accepts:["am visiting"], tense:"Present continuous",
+  why:'Kế hoạch/lịch hẹn cá nhân đã sắp xếp trước → hiện tại tiếp diễn: "am visiting".',
+  bad:[{test:/\bwill visit\b/,msg:'Lịch hẹn cá nhân đã sắp xếp trước thường dùng hiện tại tiếp diễn, không phải "will".'},
+       {test:/\bvisit$/,msg:'Cần chia động từ ở thì tương lai (hiện tại tiếp diễn), không để nguyên thể.'}]},
+ {text:"According to the graph, the population of elderly people in Japan _______ (predict / rise) sharply over the next twenty years.",
+  accepts:["is predicted to rise"], tense:"Future phrase",
+  why:'"According to the graph" (số liệu) → cụm dự đoán "be predicted to + V": "is predicted to rise".',
+  bad:[{test:/\bwill rise\b/,msg:'Đề bài cho sẵn "predict" trong ngoặc — cần dùng cụm "be predicted to + V", không phải "will".'},
+       {test:/\bpredicts\b/,msg:'Cần dạng bị động "be predicted to + V nguyên thể": "is predicted to rise".'}]},
+ {text:"Experts say that online shopping _______ (likely / become) even more popular in the next decade.",
+  accepts:["is likely to become"], tense:"Future phrase",
+  why:'Từ gợi ý "likely" → cụm dự đoán "be likely to + V": "is likely to become".',
+  bad:[{test:/\bwill likely\b/,msg:'Cần cụm chuẩn "be likely to + V nguyên thể": "is likely to become", không phải "will likely become".'},
+       {test:/\bwill become\b/,msg:'Đề bài cho sẵn "likely" — cần dùng cụm "be likely to + V", không phải "will".'}]}
+];
+
+/* ============ RENDER: EX1 ============ */
+function renderEx1(){
+  const box=document.getElementById('ex1-list');
+  EX1.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem"><span class="num">${i+1}.</span>${esc(q.stem)}</div>
+      <ul class="opts">
+        <li><label><input type="radio" name="q1_${i}" value="0"><span>${esc(q.optA)}</span></label></li>
+        <li><label><input type="radio" name="q1_${i}" value="1"><span>${esc(q.optB)}</span></label></li>
+      </ul>
+      <div class="qbtns"><button class="small" onclick="checkEx1One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb1_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx1One(i){
+  const q=EX1[i], fb=document.getElementById('fb1_'+i);
+  const sel=document.querySelector(`input[name="q1_${i}"]:checked`);
+  if(!sel){setFb(fb,'fb-warn','Em chưa chọn đáp án.');return false;}
+  const k=+sel.value;
+  const correctWord=k===0?q.optA:q.optB;
+  const wanted=q.correct===0?q.optA:q.optB;
+  if(k===q.correct){
+    setFb(fb,'fb-good',`<b>Chính xác!</b> "${esc(wanted)}" — <span class="why">${esc(q.whyCorrect)}</span>`);
+    return true;
+  }
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> Em chọn "${esc(correctWord)}": ${esc(q.whyWrong)}<br>Đáp án đúng: <b>${esc(wanted)}</b> — <span class="why">${esc(q.whyCorrect)}</span>`);
+  return false;
+}
+function checkEx1(){
+  let s=0;EX1.forEach((q,i)=>{if(checkEx1One(i))s++;});
+  document.getElementById('ex1-score').textContent=s+' / 5';
+  updateTotal();
+}
+
+/* ============ RENDER: EX2 ============ */
+function renderEx2(){
+  document.getElementById('ex2-bank').innerHTML=EX2BANK.map(w=>`<span class="chip">${esc(w)}</span>`).join('');
+  const box=document.getElementById('ex2-list');
+  EX2.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem"><span class="num">${i+1}.</span>${esc(q.stem)}</div>
+      <input type="text" class="sent" id="in2_${i}" placeholder="Your answer: …" autocomplete="off">
+      <div class="qbtns"><button class="small" onclick="checkEx2One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb2_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx2One(i){
+  const q=EX2[i], fb=document.getElementById('fb2_'+i);
+  const raw=document.getElementById('in2_'+i).value.trim();
+  if(!raw){setFb(fb,'fb-warn','Em chưa chọn cụm từ.');return false;}
+  const a=norm(raw), ans=norm(q.answer);
+  if(a===ans){
+    setFb(fb,'fb-good',`<b>Chính xác!</b> "${esc(q.answer)}" — <span class="why">${esc(q.why)}</span>`);
+    return true;
+  }
+  const isInBank=EX2BANK.map(norm).includes(a);
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> ${isInBank?'Cụm này có trong hộp từ nhưng chưa hợp với câu này.':'Hãy chọn đúng một cụm trong hộp từ đã cho.'}<br>Đáp án đúng: <b>${esc(q.answer)}</b> — <span class="why">${esc(q.why)}</span>`);
+  return false;
+}
+function checkEx2(){
+  let s=0;EX2.forEach((q,i)=>{if(checkEx2One(i))s++;});
+  document.getElementById('ex2-score').textContent=s+' / 5';
+  updateTotal();
+}
+
+/* ============ RENDER: EX3 ============ */
+function renderEx3(){
+  const box=document.getElementById('ex3-list');
+  EX3.forEach((q,i)=>{
+    const parts=q.text.split(/_{3,}/);
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem"><span class="num">${i+1}.</span>${esc(parts[0])}<input class="gap" id="in3_${i}" autocomplete="off" placeholder="…">${esc(parts[1]||'')}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx3One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb3_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function checkEx3One(i){
+  const q=EX3[i], fb=document.getElementById('fb3_'+i);
+  const raw=document.getElementById('in3_'+i).value;
+  const a=norm(raw);
+  if(!a){setFb(fb,'fb-warn','Em chưa điền đáp án.');return false;}
+  const accN=q.accepts.map(norm);
+  const ok=accN.some(x=>answerMatches(a,x));
+  if(ok){
+    setFb(fb,'fb-good',`<b>Chính xác!</b> <b>${esc(q.accepts.join(' / '))}</b> — ${esc(q.tense)}.<br><span class="why">${esc(q.why)}</span>`);
+    return true;
+  }
+  let hint='';
+  (q.bad||[]).forEach(b=>{ if(!hint && b.test.test(a)) hint=b.msg; });
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> ${hint?esc(hint)+'<br>':''}Đáp án đúng: <b>${esc(q.accepts.join(' / '))}</b> — ${esc(q.tense)}.<br><span class="why">${esc(q.why)}</span>`);
+  return false;
+}
+function checkEx3(){
+  let s=0;EX3.forEach((q,i)=>{if(checkEx3One(i))s++;});
+  document.getElementById('ex3-score').textContent=s+' / 5';
+  updateTotal();
+}
+
+/* ============ totals ============ */
+function num(txt){const m=String(txt).match(/(-?\d+)\s*\/\s*\d+/);return m?+m[1]:null;}
+function updateTotal(){
+  const a=num(document.getElementById('ex1-score').textContent);
+  const b=num(document.getElementById('ex2-score').textContent);
+  const c=num(document.getElementById('ex3-score').textContent);
+  if(a===null&&b===null&&c===null){document.getElementById('totalScore').textContent='Điểm: – / 15';return;}
+  document.getElementById('totalScore').textContent='Điểm: '+((a||0)+(b||0)+(c||0))+' / 15';
+}
+function gradeAll(){checkEx1();checkEx2();checkEx3();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){
+  if(!confirm('Xoá toàn bộ câu trả lời và làm lại từ đầu?'))return;
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('input[type=text].sent, input.gap').forEach(x=>x.value='');
+  document.querySelectorAll('.fb').forEach(f=>{f.className='fb';f.innerHTML='';});
+  document.getElementById('ex1-score').textContent='– / 5';
+  document.getElementById('ex2-score').textContent='– / 5';
+  document.getElementById('ex3-score').textContent='– / 5';
+  updateTotal();
+}
+
+/* ============ init ============ */
+renderEx1();renderEx2();renderEx3();
+</script>
+</body>
+</html>
