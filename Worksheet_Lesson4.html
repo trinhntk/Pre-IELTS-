@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet – Lesson 4: Adventure (Interactive)</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1f2733; --muted:#5b6675;
+    --line:#e2e7f0; --brand:#d9642a; --brand-d:#b34e1c;
+    --good:#1a7f3c; --good-bg:#e7f6ec; --good-line:#9dd8b0;
+    --bad:#c0392b; --bad-bg:#fdeceb; --bad-line:#f1b6b0;
+    --warn:#8a6100; --warn-bg:#fff6e2; --warn-line:#f0d69a;
+    --info:#1b5e8a; --info-bg:#e7f2fb; --info-line:#b6d8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.7;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+  header.top{background:linear-gradient(135deg,#d9642a,#f0955b);color:#fff;border-radius:16px;
+    padding:22px 24px;box-shadow:0 6px 20px rgba(217,100,42,.25)}
+  header.top h1{margin:0 0 4px;font-size:22px}
+  header.top p{margin:2px 0;font-size:14px;opacity:.95}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:18px 0}
+  .intro table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  .intro th,.intro td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .intro th{background:#fbeee3}
+  section.ex{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin:20px 0;box-shadow:0 2px 8px rgba(20,30,60,.04)}
+  section.ex > h2{margin:0 0 6px;font-size:18px;color:var(--brand-d)}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .q{padding:14px 0;border-top:1px dashed var(--line)}
+  .q:first-of-type{border-top:none}
+  .q .stem{margin-bottom:6px}
+  .q .stem .num{font-weight:700;color:var(--brand-d);margin-right:4px}
+  input.gap{font:inherit;padding:4px 8px;border:1px solid var(--brand);border-radius:7px;background:#fcfdff;
+    min-width:180px;margin:0 3px}
+  input[type=text].sent{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);
+    border-radius:9px;background:#fcfdff}
+  .t-lines{display:grid;gap:8px;margin-top:8px}
+  .t-lines .row{display:flex;gap:8px;align-items:center}
+  .t-lines .row span.n{font-size:13px;color:var(--muted);min-width:64px}
+  .passage{background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px}
+  button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--brand);
+    background:var(--brand);color:#fff;padding:7px 14px;transition:filter .15s}
+  button:hover{filter:brightness(1.07)}
+  button.ghost{background:#fff;color:var(--brand-d)}
+  button.small{padding:4px 10px;font-size:13px}
+  .qbtns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14.5px;display:none}
+  .fb.show{display:block}
+  .fb .why{color:var(--muted);font-style:italic}
+  .fb-good{background:var(--good-bg);border:1px solid var(--good-line);color:#15391f}
+  .fb-bad{background:var(--bad-bg);border:1px solid var(--bad-line);color:#5b1a13}
+  .fb-warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5b4300}
+  .fb-info{background:var(--info-bg);border:1px solid var(--info-line);color:#123a52}
+  .fb ul{margin:6px 0 0;padding-left:20px}
+  .fb li{margin:3px 0}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .tag.ok{background:var(--good-bg);color:var(--good)}
+  .tag.no{background:var(--bad-bg);color:var(--bad)}
+  .tag.hint{background:var(--warn-bg);color:var(--warn)}
+  .section-foot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .score{font-weight:700}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.92);backdrop-filter:blur(6px);
+    padding:10px 0;margin:-8px 0 8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line)}
+  .bar .score{margin-left:auto}
+  code{background:#eef2fb;padding:1px 5px;border-radius:5px;font-size:13px}
+  .cheat{font-size:13px;color:var(--muted);margin-top:8px}
+  @media (max-width:560px){ .t-lines .row{flex-direction:column;align-items:stretch} .bar .score{margin-left:0} input.gap{min-width:150px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>WORKSHEET – LESSON 4</h1>
+    <p>Adventure &amp; Past Tenses&nbsp; | &nbsp;Pre-IELTS Foundation</p>
+    <p>Phiên bản bài tập tương tác — làm bài, bấm <b>Kiểm tra</b> để nhận giải thích lỗi sai.</p>
+  </header>
+
+  <div class="intro">
+    <p style="margin:0">Phiếu bài tập ôn lại từ vựng <b>Unit 4 – Adventure</b> và ngữ pháp <b>các thì quá khứ</b> (Past simple / Past continuous / Past perfect simple) ở Handout Session 4 và <i>Perfect Grammar</i>.</p>
+    <table>
+      <tr><th>Bài tập</th><th>Trọng tâm</th><th>Kỹ năng liên quan</th></tr>
+      <tr><td>Exercise 1</td><td>Past simple / continuous / perfect</td><td>Chia đúng thì dựa vào ngữ cảnh (10 câu)</td></tr>
+      <tr><td>Exercise 2</td><td>Past simple / continuous / perfect</td><td>Sửa lỗi trong transcript Speaking Part 1–2 (10 lỗi)</td></tr>
+    </table>
+    <div class="cheat">
+      <b>Dấu hiệu nhanh:</b>
+      <b>Past simple</b> — last year/yesterday/two years ago, hành động đơn đã hoàn tất, hành động NGẮN xen vào một hành động khác.
+      <b>Past continuous</b> — while + hành động đang diễn ra bị hành động khác xen vào, at that moment.
+      <b>Past perfect</b> — before/by the time/when + already/never...before, hành động xảy ra TRƯỚC một mốc/hành động quá khứ khác.
+    </div>
+  </div>
+
+  <div class="bar">
+    <button class="ghost small" onclick="gradeAll()">Chấm toàn bộ</button>
+    <button class="ghost small" onclick="resetAll()">Làm lại từ đầu</button>
+    <span class="score" id="totalScore">Điểm: – / 20</span>
+  </div>
+
+  <!-- ================= EXERCISE 1 ================= -->
+  <section class="ex" id="ex1">
+    <h2>EXERCISE 1 – Chia đúng dạng của động từ</h2>
+    <p class="lead">Put the verb in brackets into the correct past tense. Dựa vào ngữ cảnh và dấu hiệu nhận biết (last year, while, before, already, never...before, when, at that moment...).</p>
+    <div id="ex1-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx1()">Kiểm tra cả phần</button>
+      <span class="score" id="ex1-score">– / 10</span>
+    </div>
+  </section>
+
+  <!-- ================= EXERCISE 2 ================= -->
+  <section class="ex" id="ex2">
+    <h2>EXERCISE 2 – Tìm và sửa lỗi sai (Speaking Part 1–2 transcripts)</h2>
+    <p class="lead">Mỗi đoạn có <b>5 lỗi về các thì quá khứ</b>. Nhập theo định dạng: <code>cụm sai - cụm đúng</code>. Ví dụ: <i>never tried - had never tried</i>.</p>
+    <div id="ex2-list"></div>
+    <div class="section-foot">
+      <button class="small" onclick="checkEx2()">Kiểm tra cả phần</button>
+      <span class="score" id="ex2-score">– / 10</span>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:30px">
+    Nguồn: Worksheet_Lesson4_Adventure.docx — phiên bản tương tác.
+  </p>
+</div>
+
+<script>
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function norm(s){return String(s||'').toLowerCase()
+  .replace(/[.,!?;:"'’‘“”()]/g,' ').replace(/\s*[-–—]\s*/g,' ').replace(/\s+/g,' ').trim();}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  let prev=Array.from({length:n+1},(_,i)=>i),cur=new Array(n+1);
+  for(let i=1;i<=m;i++){cur[0]=i;
+    for(let j=1;j<=n;j++){const cost=a[i-1]===b[j-1]?0:1;
+      cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+cost);}
+    [prev,cur]=[cur,prev];}
+  return prev[n];
+}
+function ratio(a,b){if(!a&&!b)return 1;const d=lev(a,b);return 1-d/Math.max(a.length,b.length,1);}
+function contains(a,b){if(!a||!b)return false;return a.includes(b)||b.includes(a);}
+function setFb(el,cls,html){el.className='fb show '+cls;el.innerHTML=html;}
+
+/* ============ EXERCISE 1 DATA ============ */
+const EX1=[
+ {text:"Last year, we _______ (book) an exciting excursion to Ha Long Bay.",
+  accepts:["booked"], tense:"Past simple",
+  why:'"Last year" (mốc thời gian xác định trong quá khứ) → quá khứ đơn: "booked".'},
+ {text:"While we _______ (trek) through the jungle, we suddenly encountered a wild elephant.",
+  accepts:["were trekking"], tense:"Past continuous",
+  why:'"While" + hành động đang diễn ra bị một hành động khác xen vào ("encountered" – quá khứ đơn) → quá khứ tiếp diễn: "were trekking".'},
+ {text:"By the time we reached the summit, we _______ (already / overcome) several difficult obstacles.",
+  accepts:["had already overcome"], tense:"Past perfect",
+  why:'"By the time" + "already" → hành động hoàn tất TRƯỚC một mốc quá khứ khác ("reached the summit") → quá khứ hoàn thành: "had already overcome".'},
+ {text:"I _______ (never / visit) such a remote destination before that trip.",
+  accepts:["had never visited"], tense:"Past perfect",
+  why:'"never … before" + mốc quá khứ ("before that trip") → quá khứ hoàn thành: "had never visited".'},
+ {text:"The storm _______ (start) suddenly while we were setting up camp in the mountains.",
+  accepts:["started"], tense:"Past simple",
+  why:'Hành động NGẮN xen vào một hành động đang diễn ra ("were setting up") → quá khứ đơn: "started".'},
+ {text:"When the guide finally arrived, we _______ (already / wait) for two hours.",
+  accepts:["had already waited"], tense:"Past perfect",
+  why:'"When" + "already": việc chờ đã hoàn tất TRƯỚC khi guide đến → quá khứ hoàn thành: "had already waited".'},
+ {text:"At that moment, I _______ (experience) one of the most intense feelings of my life.",
+  accepts:["was experiencing"], tense:"Past continuous",
+  why:'"At that moment" → hành động đang diễn ra tại một thời điểm cụ thể trong quá khứ → quá khứ tiếp diễn: "was experiencing".'},
+ {text:"We _______ (decide) to reschedule our itinerary because of the sudden disturbance.",
+  accepts:["decided"], tense:"Past simple",
+  why:'Hành động đơn, đã hoàn tất trong quá khứ → quá khứ đơn: "decided".'},
+ {text:"Before we set off, we _______ (plan) every detail of the journey carefully.",
+  accepts:["had planned"], tense:"Past perfect",
+  why:'"Before" + hành động xảy ra TRƯỚC một hành động quá khứ khác ("set off") → quá khứ hoàn thành: "had planned".'},
+ {text:"Yesterday, the local guide _______ (accompany) us to a stunning viewpoint above the valley.",
+  accepts:["accompanied"], tense:"Past simple",
+  why:'"Yesterday" (mốc thời gian xác định) → quá khứ đơn: "accompanied".'}
+];
+
+/* ============ EXERCISE 2 DATA ============ */
+const EX2=[
+ {title:"Transcript – PART 1 (Have you ever been on an adventurous trip?)",
+  text:"Yes, I have. Two years ago, I went on an adventurous trip to Da Lat with my cousins. Before that trip, I never tried paragliding, so it was a completely new experience for me. While we flew above the valley, we encountered strong winds, which made the flight quite intense. It was the most intense experience I ever had. Our guide already checked the weather forecast carefully before we took off, so we felt safe throughout the journey. By the end of the day, I successfully overcome my fear of heights.",
+  mistakes:[
+   {wrong:"i never tried paragliding",correct:"i had never tried paragliding",why:'"Before that trip" + "never … before" → hành động xảy ra TRƯỚC một mốc quá khứ khác (chuyến đi) → quá khứ hoàn thành: "had never tried".'},
+   {wrong:"while we flew above the valley",correct:"while we were flying above the valley",why:'"While" + hành động đang diễn ra bị "encountered" (quá khứ đơn) xen vào → quá khứ tiếp diễn: "were flying".'},
+   {wrong:"the most intense experience i ever had",correct:"the most intense experience i had ever had",why:'So sánh nhất + "ever" khi đang kể chuyện ở quá khứ → quá khứ hoàn thành: "I had ever had".'},
+   {wrong:"our guide already checked the weather forecast",correct:"our guide had already checked the weather forecast",why:'"already" + hành động xảy ra TRƯỚC "before we took off" → quá khứ hoàn thành: "had already checked".'},
+   {wrong:"i successfully overcome my fear of heights",correct:"i had successfully overcome my fear of heights",why:'"By the end of the day" (mốc quá khứ) + hành động đã hoàn tất tính đến mốc đó → quá khứ hoàn thành: "had successfully overcome".'}]},
+ {title:"Transcript – PART 2 (Describe an adventurous trip you went on)",
+  text:"I'd like to talk about a trip I took last summer to a small island off the coast of Nha Trang. I went there with my best friend, who already visited the island once before. I heard many stories about the island before, but nothing compared to seeing it myself. While we snorkelled near the reef, we encountered a sudden change in the weather, and the sky turned dreary within minutes. We planned our itinerary very carefully, but we still had to reschedule our return boat trip because of the storm. It was honestly one of the most intense experiences I ever had. Looking back, I realise that trip taught me a profound lesson about staying calm under pressure.",
+  mistakes:[
+   {wrong:"who already visited the island once before",correct:"who had already visited the island once before",why:'"already … before" xảy ra TRƯỚC chuyến đi đang kể ("went there") → quá khứ hoàn thành: "had already visited".'},
+   {wrong:"i heard many stories about the island before",correct:"i had heard many stories about the island before",why:'Nghe những câu chuyện đó TRƯỚC khi đến đảo (trước mốc "went there") → quá khứ hoàn thành: "had heard".'},
+   {wrong:"while we snorkelled near the reef",correct:"while we were snorkelling near the reef",why:'"While" + hành động đang diễn ra bị "encountered" xen vào → quá khứ tiếp diễn: "were snorkelling".'},
+   {wrong:"we planned our itinerary very carefully",correct:"we had planned our itinerary very carefully",why:'Việc lên kế hoạch xảy ra TRƯỚC khi phải đổi lịch (tương phản với "but we still had to reschedule") → quá khứ hoàn thành: "had planned".'},
+   {wrong:"the most intense experiences i ever had",correct:"the most intense experiences i had ever had",why:'So sánh nhất + "ever" khi đang kể chuyện ở quá khứ → quá khứ hoàn thành: "I had ever had".'}]}
+];
+
+/* ============ shared: grade a set of "wrong - correct" lines ============ */
+function parsePair(v){
+  const p=v.split(/\s+[-–—>]{1,2}\s+|\s*→\s*/);
+  if(p.length<2)return null;
+  return [p[0].trim(), p.slice(1).join(' ').trim()];
+}
+function tokenSubset(a,b){
+  const ta=norm(a).split(' ').filter(Boolean), tb=norm(b).split(' ').filter(Boolean);
+  const [short,long]=ta.length<=tb.length?[ta,tb]:[tb,ta];
+  if(short.length<2)return false;
+  return short.every(t=>long.includes(t));
+}
+function matchScore(w,target){
+  let r=ratio(w,target);
+  if(contains(w,target))r=Math.max(r,0.9);
+  if(tokenSubset(w,target))r=Math.max(r,0.85);
+  return r;
+}
+function gradeMistakeSet(mistakes,getVal){
+  const used=new Array(mistakes.length).fill(false);
+  let got=0; const lines=[];
+  for(let k=0;k<mistakes.length;k++){
+    const v=(getVal(k)||'').trim();
+    if(!v){lines.push(`<li><span class="tag hint">?</span>Mistake ${k+1}: chưa nhập.</li>`);continue;}
+    const pr=parsePair(v);
+    if(!pr){lines.push(`<li><span class="tag hint">?</span>Mistake ${k+1}: nhập theo định dạng <code>cụm sai - cụm đúng</code> (có dấu cách quanh dấu "-").</li>`);continue;}
+    const w=norm(pr[0]), c=norm(pr[1]);
+    let best=-1,bestR=0;
+    mistakes.forEach((m,mi)=>{ if(used[mi])return;
+      const r=matchScore(w,norm(m.wrong));
+      if(r>bestR){bestR=r;best=mi;}});
+    if(best<0||bestR<0.8){
+      let dup=false;
+      mistakes.forEach((m,mi)=>{ if(used[mi]&&matchScore(w,norm(m.wrong))>=0.8)dup=true;});
+      if(dup) lines.push(`<li><span class="tag hint">↺</span>Mistake ${k+1}: lỗi này đã được nêu ở dòng trên.</li>`);
+      else lines.push(`<li><span class="tag no">✗</span>Mistake ${k+1}: <b>"${esc(pr[0])}"</b> không khớp lỗi thì nào trong đoạn. Xem lại dấu hiệu: while (tiếp diễn bị xen vào), before/already/never...before (hoàn thành xảy ra trước một mốc quá khứ khác), mốc thời gian xác định (quá khứ đơn).</li>`);
+      continue;
+    }
+    const m=mistakes[best]; used[best]=true;
+    const cok=matchScore(c,norm(m.correct))>=0.8;
+    if(cok){got++;
+      lines.push(`<li><span class="tag ok">✓</span>Mistake ${k+1}: <b>${esc(m.wrong)}</b> → <b>${esc(m.correct)}</b>.<br><span class="why">${esc(m.why)}</span></li>`);
+    }else{
+      lines.push(`<li><span class="tag no">✗</span>Mistake ${k+1}: đúng chỗ sai (<b>${esc(m.wrong)}</b>) nhưng phần sửa chưa chính xác.<br>Sửa đúng: <b>${esc(m.correct)}</b>.<br><span class="why">${esc(m.why)}</span></li>`);
+    }
+  }
+  return {got,lines};
+}
+
+/* ============ RENDER ============ */
+function renderEx1(){
+  const box=document.getElementById('ex1-list');
+  EX1.forEach((q,i)=>{
+    const parts=q.text.split(/_{3,}/);
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="stem"><span class="num">${i+1}.</span>${esc(parts[0])}<input class="gap" id="in1_${i}" autocomplete="off" placeholder="…">${esc(parts[1]||'')}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx1One(${i})">Kiểm tra</button></div>
+      <div class="fb" id="fb1_${i}"></div>`;
+    box.appendChild(d);
+  });
+}
+function renderEx2(){
+  const box=document.getElementById('ex2-list');
+  EX2.forEach((t,ti)=>{
+    const d=document.createElement('div');d.className='q';
+    let rows='';for(let k=0;k<5;k++){rows+=`<div class="row"><span class="n">Mistake ${k+1}</span>
+      <input type="text" class="sent" id="in2_${ti}_${k}" placeholder="cụm sai - cụm đúng" autocomplete="off"></div>`;}
+    d.innerHTML=`<div class="stem" style="font-weight:600">${esc(t.title)}</div>
+      <div class="passage">${esc(t.text)}</div>
+      <div class="t-lines">${rows}</div>
+      <div class="qbtns"><button class="small" onclick="checkEx2One(${ti})">Kiểm tra đoạn này</button>
+        <button class="small ghost" onclick="revealEx2(${ti})">Xem đáp án đoạn này</button></div>
+      <div class="fb" id="fb2_${ti}"></div>`;
+    box.appendChild(d);
+  });
+}
+
+/* ============ CHECK: EX1 ============ */
+function ex1Diagnose(a,q){
+  const isCont=/\b(was|were)\b/.test(a) && /ing\b/.test(a);
+  const isPerf=/\bhad\b/.test(a);
+  if(isCont && q.tense!=='Past continuous')
+    return 'Em dùng thì quá khứ tiếp diễn, nhưng ngữ cảnh câu này cần '+q.tense.toLowerCase()+'.';
+  if(isPerf && q.tense!=='Past perfect')
+    return 'Em dùng thì quá khứ hoàn thành, nhưng ngữ cảnh câu này cần '+q.tense.toLowerCase()+'.';
+  if(q.tense==='Past perfect' && !isPerf)
+    return 'Thì quá khứ hoàn thành cần "had + quá khứ phân từ (V3/V-ed)".';
+  if(q.tense==='Past continuous' && !/\b(was|were)\b/.test(a))
+    return 'Thì quá khứ tiếp diễn cần "was/were + V-ing".';
+  if(q.tense==='Past continuous' && !/ing\b/.test(a))
+    return 'Động từ chính phải ở dạng V-ing.';
+  if(q.tense==='Past simple' && (isPerf || /\b(was|were)\b.*ing\b/.test(a)))
+    return 'Ngữ cảnh này chỉ cần thì quá khứ ĐƠN (không dùng "had" hay "was/were + V-ing").';
+  return '';
+}
+const AUX_WORDS=['have','has','had','was','were','is','are','am','did','do','does','will','would','should','shall','can','could','not',"n't",'to'];
+function answerMatches(a,x){
+  if(a===x)return true;
+  if(a.endsWith(' '+x)){
+    const before=a.slice(0,a.length-x.length-1).trim().split(' ').pop();
+    if(before && AUX_WORDS.includes(before))return false;
+    return true;
+  }
+  return false;
+}
+function checkEx1One(i){
+  const q=EX1[i], fb=document.getElementById('fb1_'+i);
+  const raw=document.getElementById('in1_'+i).value;
+  const a=norm(raw);
+  if(!a){setFb(fb,'fb-warn','Em chưa điền đáp án.');return false;}
+  const accN=q.accepts.map(norm);
+  const ok=accN.some(x=>answerMatches(a,x));
+  if(ok){
+    setFb(fb,'fb-good',`<b>Chính xác!</b> <b>${esc(q.accepts.join(' / '))}</b> — ${esc(q.tense)}.<br><span class="why">${esc(q.why)}</span>`);
+    return true;
+  }
+  const hint=ex1Diagnose(a,q);
+  setFb(fb,'fb-bad',`<b>Chưa đúng.</b> ${hint?esc(hint)+'<br>':''}Đáp án đúng: <b>${esc(q.accepts.join(' / '))}</b> — ${esc(q.tense)}.<br><span class="why">${esc(q.why)}</span>`);
+  return false;
+}
+function checkEx1(){
+  let s=0;EX1.forEach((q,i)=>{if(checkEx1One(i))s++;});
+  document.getElementById('ex1-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ CHECK: EX2 ============ */
+function checkEx2One(ti){
+  const T=EX2[ti], fb=document.getElementById('fb2_'+ti);
+  const {got,lines}=gradeMistakeSet(T.mistakes,k=>document.getElementById(`in2_${ti}_${k}`).value);
+  const cls=got===5?'fb-good':(got>0?'fb-warn':'fb-bad');
+  setFb(fb,cls,`<b>Đúng ${got} / 5 lỗi.</b><ul>${lines.join('')}</ul>`);
+  fb.dataset.got=got;
+  return got;
+}
+function revealEx2(ti){
+  const T=EX2[ti], fb=document.getElementById('fb2_'+ti);
+  setFb(fb,'fb-info',`<b>Đáp án – ${esc(T.title)}</b><ul>${
+    T.mistakes.map((m,i)=>`<li>${i+1}) <b>${esc(m.wrong)}</b> → <b>${esc(m.correct)}</b><br><span class="why">${esc(m.why)}</span></li>`).join('')
+  }</ul>`);
+}
+function checkEx2(){
+  let s=0;EX2.forEach((t,ti)=>{s+=checkEx2One(ti);});
+  document.getElementById('ex2-score').textContent=s+' / 10';
+  updateTotal();
+}
+
+/* ============ totals ============ */
+function num(txt){const m=String(txt).match(/(-?\d+)\s*\/\s*\d+/);return m?+m[1]:null;}
+function updateTotal(){
+  const a=num(document.getElementById('ex1-score').textContent);
+  const b=num(document.getElementById('ex2-score').textContent);
+  if(a===null&&b===null){document.getElementById('totalScore').textContent='Điểm: – / 20';return;}
+  document.getElementById('totalScore').textContent='Điểm: '+((a||0)+(b||0))+' / 20';
+}
+function gradeAll(){checkEx1();checkEx2();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){
+  if(!confirm('Xoá toàn bộ câu trả lời và làm lại từ đầu?'))return;
+  document.querySelectorAll('input.gap, input[type=text].sent').forEach(x=>x.value='');
+  document.querySelectorAll('.fb').forEach(f=>{f.className='fb';f.innerHTML='';});
+  document.getElementById('ex1-score').textContent='– / 10';
+  document.getElementById('ex2-score').textContent='– / 10';
+  updateTotal();
+}
+
+/* ============ init ============ */
+renderEx1();renderEx2();
+</script>
+</body>
+</html>
